@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<nav th:fragment="navbar" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header" style="width:100%;">
+            <a class="navbar-brand" href="/systemManage/apply/list?hasRead=false" style="color: #fff">会大师后台管理</a>
+            <a type="button" href="/manage/dologout" class="btn btn-default navbar-btn" style="float: right;">退出
+            </a>
+            <p class="navbar-text" style="margin-right: 10px;float: right;color: #fff">欢迎您[<span th:text="${session.login_user.nickname}"></span>]，上次登录时间&nbsp;<span th:text="${#calendars.format(session.login_user.lastLoginTime,'yyyy-MM-dd HH:mm:ss')}"></span></p>
+        </div>
+
+    </div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: commonheader">
+</head>
+<head>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>会大师门户管理登录</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/signin.css}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <form action="/manage/dologin" class="form-signin" method="post">
+
+
+
+        <h2 class="form-signin-heading">欢迎您回来</h2>
+        <label for="inputUsername" class="sr-only">请输入登录用户名</label>
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="请输入登录用户名" required
+               autofocus>
+        <label for="inputPassword" class="sr-only">请输入登录密码</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="请输入登录密码" required>
+        <!--<div class="checkbox">-->
+            <!--<label>-->
+                <!--<input type="checkbox" value="remember-me"> 记住我一周-->
+            <!--</label>-->
+        <!--</div>-->
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+
+        <div th:if="${msg} != null" class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong><span th:text="${msg}">请正确填写信息</span></strong>
+        </div>
+
+    </form>
+
+</div>
+
+<div th:include="footer :: commonjs"></div>
+
+</body>
+</html>

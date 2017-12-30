@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- 导航 -->
+<body>
+
+<!-- FOOTER -->
+<footer th:fragment="copy">
+
+    <hr>
+
+    <div class="row footer">
+        <div class="col-md-7 col-md-offset-1">
+            <ul>
+                <li><a href="javascript:void(0);">大师简介</a></li>
+                <li><a href="javascript:void(0);">团队简介</a></li>
+                <li><a href="javascript:void(0);">加入我们</a></li>
+                <li><a href="javascript:void(0);">联系方式</a></li>
+            </ul>
+            <ul>
+                <li><a href="javascript:void(0);">会务行情</a></li>
+                <li><a href="javascript:void(0);">行业说明</a></li>
+                <li><a href="javascript:void(0);">服务明细</a></li>
+                <li><a href="javascript:void(0);">资费公开</a></li>
+            </ul>
+            <ul>
+                <li><a href="javascript:void(0);">热门推荐</a></li>
+                <li><a href="javascript:void(0);">周边会场</a></li>
+                <li><a href="javascript:void(0);">新开会场</a></li>
+                <li><a href="javascript:void(0);">友情链接</a></li>
+            </ul>
+            <ul>
+                <li><a href="javascript:void(0);">大师论坛</a></li>
+                <li><a href="javascript:void(0);">行业动态</a></li>
+                <li><a href="javascript:void(0);">用户评价</a></li>
+                <li><a href="javascript:void(0);">使用攻略</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <p class="ercode">
+                <img th:src="@{/static/images/ercode/221513916932_.pic_hd.jpg}" alt="..." class="img-thumbnail">
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <p style="text-align: center;margin: 0;">
+            Copyright © 2017 会大师 Corporation, All Rights Reserved<br>
+            会大师信息技术有限公司 版权所有 粤ICP备17129528号
+        </p>
+
+        <div style="padding:10px 0;text-align: center;">
+            <a rel="nofollow" target="_blank" href="http://www.bj.cyberpolice.cn/index.do">
+                <img width="103" height="32" alt="网络警察" src="//img12.360buyimg.com/cms/jfs/t2050/256/1470027660/4336/2a2c74bd/56a89b8fNfbaade9a.jpg" class="err-product">
+            </a>
+            <a style="margin-left:15px;" rel="nofollow" target="_blank" href="http://www.12377.cn"><img width="103" height="32" src="//img30.360buyimg.com/da/jfs/t1915/215/1329999964/2996/d7ff13f0/5698dc03N23f2e3b8.jpg"></a>
+        </div>
+    </div>
+
+</footer>
+
+
+<div th:fragment="commonjs">
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script th:src="@{/static/js/bootstrap/jquery.min.js}"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"></script>
+</div>
+
+</body>
+</html>

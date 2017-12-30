@@ -1,0 +1,26 @@
+.marketing {
+    margin-top: 150px;
+}
+
+.startingprice {
+    color: #cf973c;
+    font-size: 18px;
+}
+
+.col-lg-4 {
+    width: 25%;
+}
+
+.pager-bar {
+    float: right;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+@media (max-width: 1024px) {
+    .marketing {
+        margin-top: 80px;
+    }
+}

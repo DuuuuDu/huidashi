@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:include="header :: bgcommonheader">
+</head>
+<head>
+    <title>会大师后台管理 - 需求汇总</title>
+
+</head>
+
+<body>
+
+<nav th:replace="systemManage/nav :: navbar"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <nav th:replace="systemManage/menu :: menulist"></nav>
+        <input type="hidden" id="param" th:value="${pathParam}">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header" th:text="${page_header}">Dashboard</h1>
+            <!--/*<span th:text="${pager.datas}"></span>*/-->
+
+            <div class="row placeholders">
+                <div aria-label="..." class="btn-group" role="group">
+                    <a  href="?hasRead=false" th:class="${!applyPageParam.hasRead}?'btn btn-primary active':'btn btn-primary'">
+                        未读信息 <span class="badge unReadCount" th:text="${unReadedCount}">4</span>
+                    </a>
+                    <a href="?hasRead=true" th:class="${applyPageParam.hasRead}?'btn btn-default active':'btn btn-default'">
+                        已读信息 <span class="badge readCount" th:text="${readedCount}"></span>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+                <div class="list-group" th:if="${pager.datas != null}" th:each="item : ${pager.datas}">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span th:class="${item.hasRead}?'label label-default' : 'label label-primary'" th:text="${item.hasRead}?'已读' : '未读'"></span>
+                            在<span class="text-muted" th:style="!${item.hasRead}?'color: #cf973c':''" th:text="${#calendars.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}"></span>时，有来自<span
+                                class="text-muted" th:style="!${item.hasRead}?'color: #cf973c':''" th:text="${item.nickName}"></span>的需求，电话为<span
+                                class="text-muted" th:style="!${item.hasRead}?'color: #cf973c':''" th:text="${item.cellPhone}"></span>
+
+                            <button th:if="!${item.hasRead}" class="btn btn-default navbar-btn markReaded" th:id="${item.id}" style="float: right;margin: 0;padding: 0px 15px;" type="button">确认标记为已读
+                            </button>
+                        </div>
+
+                        <div class="panel-body">
+                            TA希望<span class="text-muted" th:text="${#calendars.format(item.beginDate,'yyyy-MM-dd')}"></span>在<span
+                                class="text-muted" th:text="${item.city}"></span>进行<span class="text-muted"
+                                                                                                  th:text="${item.activityType}"></span>，预算是<span class="text-muted"
+                                                                                                                                                 th:text="${item.activityBudget}"></span>，
+                            <span class="text-muted" th:if="${item.requirement != ''}" th:text="'额外需求是' + ${item.requirement}"></span>
+                            <span class="text-muted" th:if="${item.requirement == ''}" th:text="'无额外需求'"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div th:replace="pager :: pagerbar"></div>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="footer :: commonjs"></div>
+<script th:src="@{/static/js/manageApplylist.js}"></script>
+</body>
+</html>

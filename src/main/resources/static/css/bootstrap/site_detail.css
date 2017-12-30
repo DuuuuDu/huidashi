@@ -1,0 +1,29 @@
+.marketing {
+    margin-top: 120px;
+}
+
+.basic-site-info{
+    padding-left: 50px;
+}
+
+.rooms-info{
+    margin-top: 20px;
+}
+
+.rooms-info p{
+    text-align: left;
+}
+
+span.field-name{
+    display: inline-block;
+    margin-top: 10px;
+    color: #cf973c;
+    min-width: 130px;
+    text-align: right;
+}
+
+.label {
+     font-size: 80%;
+}
+
+

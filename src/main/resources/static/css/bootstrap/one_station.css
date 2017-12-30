@@ -1,0 +1,13 @@
+.text-muted {
+    color: #cf973c;
+}
+
+.about {
+    margin-top: 120px;
+}
+
+@media (max-width: 1024px) {
+    .about {
+        margin-top: 80px;
+    }
+}

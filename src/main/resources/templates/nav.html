@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+
+<!-- nav -->
+<nav th:fragment="navbar" class="navbar navbar-inverse navbar-fixed-top" style="box-shadow: 1px 1px 10px #d9d9d9;">
+    <div class="container">
+
+        <!--logo-->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a href="/">
+                <img class="navbar-brand" href="/"
+                     th:src="@{/static/images/logo.png}"/>
+            </a>
+        </div>
+
+        <!--menu-->
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown"><a href="/">首页</a></li>
+                <li class="dropdown"><a href="/site/list">场地展示</a></li>
+                <li class="dropdown"><a href="/onestation">一站式服务</a></li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                        data-toggle="dropdown" role="button" aria-haspopup="true"
+                                        aria-expanded="false">关于我们<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/about">关于会大师</a></li>
+                        <li><a href="/about">动态中心</a></li>
+                        <li><a href="/about">联系我们</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+</body>
+</html>

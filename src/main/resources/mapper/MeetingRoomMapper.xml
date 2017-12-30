@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.huidashi.mapper.MeetingRoomMapper">
+    <resultMap id="BaseResultMap" type="com.cn.huidashi.entity.MeetingRoom">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="site_id" property="siteId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="story_height" property="storyHeight" jdbcType="VARCHAR"/>
+        <result column="size" property="size" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="retail_full_day" property="retailFullDay" jdbcType="VARCHAR"/>
+        <result column="retail_half_day" property="retailHalfDay" jdbcType="VARCHAR"/>
+        <result column="meeting_only_full_day" property="meetingOnlyFullDay" jdbcType="VARCHAR"/>
+        <result column="meeting_only_half_day" property="meetingOnlyHalfDay" jdbcType="VARCHAR"/>
+        <result column="overtime_charge_pur_hour" property="overtimeChargePurHour" jdbcType="VARCHAR"/>
+        <result column="meeting_level" property="meetingLevel" jdbcType="VARCHAR"/>
+        <result column="has_through_lift_to_meeting" property="hasThroughLiftToMeeting" jdbcType="BIT"/>
+        <result column="has_free_lounge" property="hasFreeLounge" jdbcType="BIT"/>
+        <result column="has_lobby" property="hasLobby" jdbcType="BIT"/>
+        <result column="free_services" property="freeServices" jdbcType="VARCHAR"/>
+        <result column="has_window" property="hasWindow" jdbcType="BIT"/>
+        <result column="has_square_area" property="hasSquareArea" jdbcType="BIT"/>
+        <result column="has_pillar" property="hasPillar" jdbcType="BIT"/>
+        <result column="has_carpet" property="hasCarpet" jdbcType="BIT"/>
+        <result column="has_led" property="hasLed" jdbcType="BIT"/>
+        <result column="led_size" property="ledSize" jdbcType="VARCHAR"/>
+        <result column="led_rent" property="ledRent" jdbcType="VARCHAR"/>
+        <result column="has_stage" property="hasStage" jdbcType="BIT"/>
+        <result column="has_projection" property="hasProjection" jdbcType="BIT"/>
+        <result column="lumen" property="lumen" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, site_id, name, area, story_height, size, type, retail_full_day, retail_half_day, 
+    meeting_only_full_day, meeting_only_half_day, overtime_charge_pur_hour, meeting_level, 
+    has_through_lift_to_meeting, has_free_lounge, has_lobby, free_services, has_window, 
+    has_square_area, has_pillar, has_carpet, has_led, led_size, led_rent, has_stage, 
+    has_projection, lumen
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_meeting_room
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectBySiteId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_meeting_room
+        where site_id = #{siteId,jdbcType=INTEGER}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_meeting_room
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.cn.huidashi.entity.MeetingRoom">
+    insert into t_meeting_room (id, site_id, name, 
+      area, story_height, size, 
+      type, retail_full_day, retail_half_day, 
+      meeting_only_full_day, meeting_only_half_day, 
+      overtime_charge_pur_hour, meeting_level, has_through_lift_to_meeting, 
+      has_free_lounge, has_lobby, free_services, 
+      has_window, has_square_area, has_pillar, 
+      has_carpet, has_led, led_size, 
+      led_rent, has_stage, has_projection, 
+      lumen)
+    values (#{id,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{storyHeight,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{retailFullDay,jdbcType=VARCHAR}, #{retailHalfDay,jdbcType=VARCHAR}, 
+      #{meetingOnlyFullDay,jdbcType=VARCHAR}, #{meetingOnlyHalfDay,jdbcType=VARCHAR}, 
+      #{overtimeChargePurHour,jdbcType=VARCHAR}, #{meetingLevel,jdbcType=VARCHAR}, #{hasThroughLiftToMeeting,jdbcType=BIT}, 
+      #{hasFreeLounge,jdbcType=BIT}, #{hasLobby,jdbcType=BIT}, #{freeServices,jdbcType=VARCHAR}, 
+      #{hasWindow,jdbcType=BIT}, #{hasSquareArea,jdbcType=BIT}, #{hasPillar,jdbcType=BIT}, 
+      #{hasCarpet,jdbcType=BIT}, #{hasLed,jdbcType=BIT}, #{ledSize,jdbcType=VARCHAR}, 
+      #{ledRent,jdbcType=VARCHAR}, #{hasStage,jdbcType=BIT}, #{hasProjection,jdbcType=BIT}, 
+      #{lumen,jdbcType=VARCHAR})
+  </insert>
+
+
+    <insert id="insertSelective" parameterType="com.cn.huidashi.entity.MeetingRoom">
+        insert into t_meeting_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="siteId != null">
+                site_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="storyHeight != null">
+                story_height,
+            </if>
+            <if test="size != null">
+                size,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="retailFullDay != null">
+                retail_full_day,
+            </if>
+            <if test="retailHalfDay != null">
+                retail_half_day,
+            </if>
+            <if test="meetingOnlyFullDay != null">
+                meeting_only_full_day,
+            </if>
+            <if test="meetingOnlyHalfDay != null">
+                meeting_only_half_day,
+            </if>
+            <if test="overtimeChargePurHour != null">
+                overtime_charge_pur_hour,
+            </if>
+            <if test="meetingLevel != null">
+                meeting_level,
+            </if>
+            <if test="hasThroughLiftToMeeting != null">
+                has_through_lift_to_meeting,
+            </if>
+            <if test="hasFreeLounge != null">
+                has_free_lounge,
+            </if>
+            <if test="hasLobby != null">
+                has_lobby,
+            </if>
+            <if test="freeServices != null">
+                free_services,
+            </if>
+            <if test="hasWindow != null">
+                has_window,
+            </if>
+            <if test="hasSquareArea != null">
+                has_square_area,
+            </if>
+            <if test="hasPillar != null">
+                has_pillar,
+            </if>
+            <if test="hasCarpet != null">
+                has_carpet,
+            </if>
+            <if test="hasLed != null">
+                has_led,
+            </if>
+            <if test="ledSize != null">
+                led_size,
+            </if>
+            <if test="ledRent != null">
+                led_rent,
+            </if>
+            <if test="hasStage != null">
+                has_stage,
+            </if>
+            <if test="hasProjection != null">
+                has_projection,
+            </if>
+            <if test="lumen != null">
+                lumen,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="siteId != null">
+                #{siteId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="storyHeight != null">
+                #{storyHeight,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="retailFullDay != null">
+                #{retailFullDay,jdbcType=VARCHAR},
+            </if>
+            <if test="retailHalfDay != null">
+                #{retailHalfDay,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingOnlyFullDay != null">
+                #{meetingOnlyFullDay,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingOnlyHalfDay != null">
+                #{meetingOnlyHalfDay,jdbcType=VARCHAR},
+            </if>
+            <if test="overtimeChargePurHour != null">
+                #{overtimeChargePurHour,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingLevel != null">
+                #{meetingLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="hasThroughLiftToMeeting != null">
+                #{hasThroughLiftToMeeting,jdbcType=BIT},
+            </if>
+            <if test="hasFreeLounge != null">
+                #{hasFreeLounge,jdbcType=BIT},
+            </if>
+            <if test="hasLobby != null">
+                #{hasLobby,jdbcType=BIT},
+            </if>
+            <if test="freeServices != null">
+                #{freeServices,jdbcType=VARCHAR},
+            </if>
+            <if test="hasWindow != null">
+                #{hasWindow,jdbcType=BIT},
+            </if>
+            <if test="hasSquareArea != null">
+                #{hasSquareArea,jdbcType=BIT},
+            </if>
+            <if test="hasPillar != null">
+                #{hasPillar,jdbcType=BIT},
+            </if>
+            <if test="hasCarpet != null">
+                #{hasCarpet,jdbcType=BIT},
+            </if>
+            <if test="hasLed != null">
+                #{hasLed,jdbcType=BIT},
+            </if>
+            <if test="ledSize != null">
+                #{ledSize,jdbcType=VARCHAR},
+            </if>
+            <if test="ledRent != null">
+                #{ledRent,jdbcType=VARCHAR},
+            </if>
+            <if test="hasStage != null">
+                #{hasStage,jdbcType=BIT},
+            </if>
+            <if test="hasProjection != null">
+                #{hasProjection,jdbcType=BIT},
+            </if>
+            <if test="lumen != null">
+                #{lumen,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsertSelective" parameterType="java.util.List">
+        insert into t_meeting_room
+        (site_id, name,
+        area, story_height, size,
+        type, retail_full_day, retail_half_day,
+        meeting_only_full_day, meeting_only_half_day,
+        overtime_charge_pur_hour, meeting_level, has_through_lift_to_meeting,
+        has_free_lounge, has_lobby, free_services,
+        has_window, has_square_area, has_pillar,
+        has_carpet, has_led, led_size,
+        led_rent, has_stage, has_projection,
+        lumen)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.siteId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR},
+            #{item.area,jdbcType=VARCHAR}, #{item.storyHeight,jdbcType=VARCHAR}, #{item.size,jdbcType=VARCHAR},
+            #{item.type,jdbcType=VARCHAR}, #{item.retailFullDay,jdbcType=VARCHAR}, #{item.retailHalfDay,jdbcType=VARCHAR},
+            #{item.meetingOnlyFullDay,jdbcType=VARCHAR}, #{item.meetingOnlyHalfDay,jdbcType=VARCHAR},
+            #{item.overtimeChargePurHour,jdbcType=VARCHAR}, #{item.meetingLevel,jdbcType=VARCHAR},
+            #{item.hasThroughLiftToMeeting,jdbcType=BIT},
+            #{item.hasFreeLounge,jdbcType=BIT}, #{item.hasLobby,jdbcType=BIT}, #{item.freeServices,jdbcType=VARCHAR},
+            #{item.hasWindow,jdbcType=BIT}, #{item.hasSquareArea,jdbcType=BIT}, #{item.hasPillar,jdbcType=BIT},
+            #{item.hasCarpet,jdbcType=BIT}, #{item.hasLed,jdbcType=BIT}, #{item.ledSize,jdbcType=VARCHAR},
+            #{item.ledRent,jdbcType=VARCHAR}, #{item.hasStage,jdbcType=BIT}, #{item.hasProjection,jdbcType=BIT},
+            #{item.lumen,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.cn.huidashi.entity.MeetingRoom">
+        update t_meeting_room
+        <set>
+            <if test="siteId != null">
+                site_id = #{siteId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="storyHeight != null">
+                story_height = #{storyHeight,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                size = #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="retailFullDay != null">
+                retail_full_day = #{retailFullDay,jdbcType=VARCHAR},
+            </if>
+            <if test="retailHalfDay != null">
+                retail_half_day = #{retailHalfDay,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingOnlyFullDay != null">
+                meeting_only_full_day = #{meetingOnlyFullDay,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingOnlyHalfDay != null">
+                meeting_only_half_day = #{meetingOnlyHalfDay,jdbcType=VARCHAR},
+            </if>
+            <if test="overtimeChargePurHour != null">
+                overtime_charge_pur_hour = #{overtimeChargePurHour,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingLevel != null">
+                meeting_level = #{meetingLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="hasThroughLiftToMeeting != null">
+                has_through_lift_to_meeting = #{hasThroughLiftToMeeting,jdbcType=BIT},
+            </if>
+            <if test="hasFreeLounge != null">
+                has_free_lounge = #{hasFreeLounge,jdbcType=BIT},
+            </if>
+            <if test="hasLobby != null">
+                has_lobby = #{hasLobby,jdbcType=BIT},
+            </if>
+            <if test="freeServices != null">
+                free_services = #{freeServices,jdbcType=VARCHAR},
+            </if>
+            <if test="hasWindow != null">
+                has_window = #{hasWindow,jdbcType=BIT},
+            </if>
+            <if test="hasSquareArea != null">
+                has_square_area = #{hasSquareArea,jdbcType=BIT},
+            </if>
+            <if test="hasPillar != null">
+                has_pillar = #{hasPillar,jdbcType=BIT},
+            </if>
+            <if test="hasCarpet != null">
+                has_carpet = #{hasCarpet,jdbcType=BIT},
+            </if>
+            <if test="hasLed != null">
+                has_led = #{hasLed,jdbcType=BIT},
+            </if>
+            <if test="ledSize != null">
+                led_size = #{ledSize,jdbcType=VARCHAR},
+            </if>
+            <if test="ledRent != null">
+                led_rent = #{ledRent,jdbcType=VARCHAR},
+            </if>
+            <if test="hasStage != null">
+                has_stage = #{hasStage,jdbcType=BIT},
+            </if>
+            <if test="hasProjection != null">
+                has_projection = #{hasProjection,jdbcType=BIT},
+            </if>
+            <if test="lumen != null">
+                lumen = #{lumen,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cn.huidashi.entity.MeetingRoom">
+    update t_meeting_room
+    set site_id = #{siteId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      story_height = #{storyHeight,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      retail_full_day = #{retailFullDay,jdbcType=VARCHAR},
+      retail_half_day = #{retailHalfDay,jdbcType=VARCHAR},
+      meeting_only_full_day = #{meetingOnlyFullDay,jdbcType=VARCHAR},
+      meeting_only_half_day = #{meetingOnlyHalfDay,jdbcType=VARCHAR},
+      overtime_charge_pur_hour = #{overtimeChargePurHour,jdbcType=VARCHAR},
+      meeting_level = #{meetingLevel,jdbcType=VARCHAR},
+      has_through_lift_to_meeting = #{hasThroughLiftToMeeting,jdbcType=BIT},
+      has_free_lounge = #{hasFreeLounge,jdbcType=BIT},
+      has_lobby = #{hasLobby,jdbcType=BIT},
+      free_services = #{freeServices,jdbcType=VARCHAR},
+      has_window = #{hasWindow,jdbcType=BIT},
+      has_square_area = #{hasSquareArea,jdbcType=BIT},
+      has_pillar = #{hasPillar,jdbcType=BIT},
+      has_carpet = #{hasCarpet,jdbcType=BIT},
+      has_led = #{hasLed,jdbcType=BIT},
+      led_size = #{ledSize,jdbcType=VARCHAR},
+      led_rent = #{ledRent,jdbcType=VARCHAR},
+      has_stage = #{hasStage,jdbcType=BIT},
+      has_projection = #{hasProjection,jdbcType=BIT},
+      lumen = #{lumen,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

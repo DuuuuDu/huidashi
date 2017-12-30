@@ -1,0 +1,245 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">
+        更新会场信息
+    </h4>
+</div>
+
+<form action="/systemManage/site/update" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${site.id}">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img th:src="${site.previewImageUrl}" th:alt="${site.siteName}">
+                </a>
+            </div>
+        </div>
+        <div class="bs-example">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">预览图</span>
+                <input type="file" name="previewImg" class="form-control"
+                       aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场名称</span>
+                <input type="text" name="siteName" class="form-control" placeholder="例如好再来商务酒店"
+                       aria-describedby="basic-addon1" th:value="${site.siteName}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场地址</span>
+                <input type="text" name="location" class="form-control" placeholder="某市某区某街道"
+                       aria-describedby="basic-addon1" th:value="${site.location}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">起步价格</span>
+                <input type="text" name="startingPrice" class="form-control" placeholder="比如666元"
+                       aria-describedby="basic-addon1" th:value="${site.startingPrice}" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场简介</span>
+                <input type="text" name="siteBriefIntroduction" class="form-control"
+                       placeholder="比如本地区排名前3的会场，配套设施完善" aria-describedby="basic-addon1"
+                       th:value="${site.siteBriefIntroduction}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场服务</span>
+                <input type="text" name="siteServices" class="form-control" placeholder="比如免费早餐，免费停车"
+                       aria-describedby="basic-addon1" th:value="${site.siteServices}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场政策</span>
+                <input type="text" name="sitePolicy" class="form-control" placeholder="比如不可携带宠物"
+                       aria-describedby="basic-addon1" th:value="${site.sitePolicy}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场面积（㎡）</span>
+                <input type="text" name="area" class="form-control" placeholder="填写数字即可，比如1000"
+                       aria-describedby="basic-addon1" th:value="${site.area}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场层高（m）</span>
+                <input type="text" name="storyHeight" class="form-control" placeholder="填写数字即可，比2"
+                       aria-describedby="basic-addon1" th:value="${site.storyHeight}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">尺寸（㎡）</span>
+                <input type="text" name="size" class="form-control" placeholder="填写具体场所的长宽高，比如1000*800*3"
+                       aria-describedby="basic-addon1" th:value="${site.size}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">流明度（lm）</span>
+                <input type="text" name="lumen" class="form-control" placeholder="商用会场流明度一般在2000lm以上"
+                       aria-describedby="basic-addon1" th:value="${site.lumen}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会场类型</span>
+                <input type="text" name="type" class="form-control" placeholder="类型"
+                       aria-describedby="basic-addon1" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">免费项目</span>
+                <input type="text" name="freeServices" class="form-control" placeholder="例如与会人员凭有效证件免费停车"
+                       aria-describedby="basic-addon1" th:value="${site.freeServices}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">门市全天价格（元）</span>
+                <input type="text" name="retailFullDay" class="form-control" placeholder="100"
+                       aria-describedby="basic-addon1" th:value="${site.retailFullDay}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">门市半天价格（元）</span>
+                <input type="text" name="retailHalfDay" class="form-control" placeholder="50"
+                       aria-describedby="basic-addon1" th:value="${site.retailHalfDay}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会议全天价格（元）</span>
+                <input type="text" name="meetingOnlyFullDay" class="form-control" placeholder="80"
+                       aria-describedby="basic-addon1" th:value="${site.meetingOnlyFullDay}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会议半天价格（元）</span>
+                <input type="text" name="meetingOnlyHalfDay" class="form-control" placeholder="40"
+                       aria-describedby="basic-addon1" th:value="${site.meetingOnlyHalfDay}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">延时收费/小时（元）</span>
+                <input type="text" name="overtimeChargePurHour" class="form-control"
+                       placeholder="超出协定服务时间的，每小时20元，不足的按一小时收取" aria-describedby="basic-addon1"
+                       th:value="${site.overtimeChargePurHour}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">会议室所在楼层</span>
+                <input type="text" name="meetingLevel" class="form-control" placeholder="1层"
+                       aria-describedby="basic-addon1" th:value="${site.meetingLevel}">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有直达会议室电梯</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasThroughLiftToMeeting" value="true" th:checked="${site.hasThroughLiftToMeeting}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasThroughLiftToMeeting" value="false" th:checked="!${site.hasThroughLiftToMeeting}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有免费休息室</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasFreeLounge" value="true" th:checked="${site.hasFreeLounge}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasFreeLounge" value="false" th:checked="!${site.hasFreeLounge}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有前厅</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasLobby" value="true" th:checked="${site.hasLobby}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasLobby" value="false" th:checked="!${site.hasLobby}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有窗户</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasWindow" value="true" th:checked="${site.hasWindow}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasWindow" value="false" th:checked="!${site.hasWindow}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否方正</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasSquareArea" value="true" th:checked="${site.hasSquareArea}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasSquareArea" value="false" th:checked="!${site.hasSquareArea}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有柱子</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasPillar" value="true"  th:checked="${site.hasPillar}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasPillar" value="false" th:checked="!${site.hasPillar}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有地毯</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasCarpet" value="true" th:checked="${site.hasCarpet}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasCarpet" value="false" th:checked="!${site.hasCarpet}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有舞台</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasStage" value="true" th:checked="${site.hasStage}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasStage" value="false" th:checked="!${site.hasStage}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有投影</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasProjection" value="true" th:checked="${site.hasProjection}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasProjection" value="false" th:checked="!${site.hasProjection}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">是否有LED</span>
+                <div class="form-control">
+                    <label class="label label-success">
+                        <input type="radio" name="hasLed" value="true" th:checked="${site.hasLed}">有
+                    </label>
+                    <label class="label label-danger">
+                        <input type="radio" name="hasLed" value="false" th:checked="!${site.hasLed}">无
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">LED尺寸（㎡）</span>
+                <input type="text" name="ledSize" class="form-control" placeholder="例如100寸"
+                       aria-describedby="basic-addon1" th:value="${site.ledSize}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">LED租用价格（元/天）</span>
+                <input type="text" name="ledRent" class="form-control" placeholder="例如200/天"
+                       aria-describedby="basic-addon1" th:value="${site.ledRent}">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary">更新</button>
+    </div>
+</form>

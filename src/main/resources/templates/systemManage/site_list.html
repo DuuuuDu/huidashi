@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:include="header :: bgcommonheader">
+</head>
+<head>
+    <title>会大师后台管理 - 场地管理</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/systemManage/site_list.css}">
+</head>
+
+<body>
+
+<nav th:replace="systemManage/nav :: navbar"></nav>
+
+<div id="delete-site" class="modal fade bs-example-modal-sm" tabindex="1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    确定删除吗？
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="confirm-delete">确认</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="update-site" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+
+<div id="add-new-site" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    新增会场信息
+                </h4>
+            </div>
+
+            <form id="saveOrUpd" action="/systemManage/site/update" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <!--<div class="row">-->
+                    <!--<div class="col-xs-6 col-md-3">-->
+                    <!--<a href="#" class="thumbnail">-->
+                    <!--<img>-->
+                    <!--</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="alert alert-warning alert-dismissible" role="alert" id="tipMessage">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>注意！</strong>带有<span class="alert-span glyphicon glyphicon-info-sign"
+                                                                  aria-hidden="true"></span>的内容为必填项，请认真正确的填写。<br/>上传文件的大小限制为10M，为保证高质量的用户浏览体验，预览图建议尺寸是550*350，或同比例更大的图片
+                    </div>
+
+                    <div class="bs-example">
+                        <div class="basic-site-info">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">预览图<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input type="file" name="previewImg" class="form-control"
+                                       aria-describedby="basic-addon1" required>
+                            </div>
+                            <div class="input-group">
+                                <span></span> <span class="input-group-addon" id="basic-addon1">场地信息PDF</span>
+                                <input type="file" name="pdfBrief" class="form-control"
+                                       aria-describedby="basic-addon1" required>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">会场名称<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input type="text" name="siteName" class="form-control" placeholder="例如：好再来商务酒店"
+                                       aria-describedby="basic-addon1" required>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">会场地址<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input type="text" name="location" class="form-control" placeholder="某市某区某街道"
+                                       aria-describedby="basic-addon1" required>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">指导价格<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input type="text" name="startingPrice" class="form-control" placeholder="比如：666"
+                                       aria-describedby="basic-addon1" required>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">会场简介<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input type="text" name="siteBriefIntroduction" class="form-control"
+                                       placeholder="比如：本地区排名前3的会场，配套设施完善" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">会场服务<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input type="text" name="siteServices" class="form-control" placeholder="比如：免费早餐，免费停车"
+                                       aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">开业时间<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input name="openingDate" class="form-control datepicker" type="text"
+                                       readonly="readonly"
+                                       aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">最后装修时间<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input name="lastDecorationDate" class="form-control datepicker" type="text"
+                                       readonly="readonly"
+                                       aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">会场政策<span
+                                        class="alert-span glyphicon glyphicon-info-sign"
+                                        aria-hidden="true"></span></span>
+                                <input type="text" name="sitePolicy" class="form-control" placeholder="比如：不可携带宠物"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- 具体房间信息 -->
+                        <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+
+                            <ul id="addRoomTab" class="nav nav-tabs" role="tablist">
+                                <li role="presentation">
+                                    <div class="btn-group" role="group">
+                                        <a href="#" role="tab" id="addRoom">
+                                            <button type="button" class="btn btn-default btn-primary">新增房间+</button>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <ul id="roomTab" class="nav nav-tabs" role="tablist">
+
+                                <div id="roomTabTemplate" style="display: none;">
+                                    <li role="presentation">
+                                        <div class="btn-group" role="group" aria-label="...">
+
+                                            <div class="btn-group " role="group">
+                                                <a href="" class="btn btn-default roomname" style="overflow: hidden;">
+                                                    房间
+                                                </a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    操作
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="deleteRoom">移除本房间</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </div>
+
+                                <li role="presentation" class="active origin">
+                                    <div class="btn-group" role="group" aria-label="...">
+
+                                        <div class="btn-group " role="group">
+                                            <a href="#origin" class="btn btn-default roomname"
+                                               style="overflow: hidden;">
+                                                房间
+                                            </a>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                操作
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="origin" class="deleteRoom">移除本房间</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <div id="roomTabContent" class="tab-content">
+                                <div style="display: none" id="roomTemplate">
+                                    <div class="tab-pane fade">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">房间名称</span>
+                                            <input type="text" name="roomName" class="form-control"
+                                                   placeholder="填写房间名称，比如：主会议室"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">房间面积（㎡）</span>
+                                            <input type="text" name="area" class="form-control"
+                                                   placeholder="填写数字即可，比如：1000"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">房间层高（m）</span>
+                                            <input type="text" name="storyHeight" class="form-control"
+                                                   placeholder="填写数字即可，比如：2"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">尺寸（㎡）</span>
+                                            <input type="text" name="size" class="form-control"
+                                                   placeholder="填写具体场所的长宽高，比如：1000*800*300"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">流明度（lm）</span>
+                                            <input type="text" name="lumen" class="form-control"
+                                                   placeholder="商用会场流明度一般在2000lm以上"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">房间类型</span>
+                                            <input type="text" name="type" class="form-control"
+                                                   placeholder="比如：剧院式，课桌式，分组式，回型/U型等"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">免费项目</span>
+                                            <input type="text" name="freeServices" class="form-control"
+                                                   placeholder="比如：与会人员凭有效证件免费停车"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">门市全天价格（元）</span>
+                                            <input type="text" name="retailFullDay" class="form-control"
+                                                   placeholder="请填写数字"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">门市半天价格（元）</span>
+                                            <input type="text" name="retailHalfDay" class="form-control"
+                                                   placeholder="请填写数字"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">会议全天价格（元）</span>
+                                            <input type="text" name="meetingOnlyFullDay" class="form-control"
+                                                   placeholder="请填写数字"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">会议半天价格（元）</span>
+                                            <input type="text" name="meetingOnlyHalfDay" class="form-control"
+                                                   placeholder="请填写数字"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">延时收费/小时（元）</span>
+                                            <input type="text" name="overtimeChargePurHour" class="form-control"
+                                                   placeholder="比如：超出协定服务时间的，每小时20元，不足的按一小时收取，此处填写20即可"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">所在楼层</span>
+                                            <input type="text" name="meetingLevel" class="form-control"
+                                                   placeholder="比如：1"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有直达会议室电梯</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasThroughLiftToMeeting"
+                                                           name="hasThroughLiftToMeeting" checked
+                                                           value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasThroughLiftToMeeting"
+                                                           name="hasThroughLiftToMeeting" value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有免费休息室</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasFreeLounge" name="hasFreeLounge"
+                                                           checked value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasFreeLounge" name="hasFreeLounge"
+                                                           value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有前厅</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasLobby" name="hasLobby" checked
+                                                           value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasLobby" name="hasLobby" value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有窗户</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasWindow" name="hasWindow" checked
+                                                           value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasWindow" name="hasWindow"
+                                                           value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否方正</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasSquareArea" name="hasSquareArea"
+                                                           checked value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasSquareArea" name="hasSquareArea"
+                                                           value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有柱子</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasPillar" name="hasPillar" checked
+                                                           value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasPillar" name="hasPillar"
+                                                           value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有地毯</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasCarpet" name="hasCarpet" checked
+                                                           value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasCarpet" name="hasCarpet"
+                                                           value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有舞台</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasStage" name="hasStage" checked
+                                                           value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasStage" name="hasStage" value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有投影</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasProjection" name="hasProjection"
+                                                           checked value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasProjection" name="hasProjection"
+                                                           value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否有LED</span>
+                                            <div class="form-control">
+                                                <label class="label label-success">
+                                                    <input type="radio" class="hasLed" name="hasLed" checked
+                                                           value="true">有
+                                                </label>
+                                                <label class="label label-danger">
+                                                    <input type="radio" class="hasLed" name="hasLed" value="false">无
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">LED尺寸（寸）</span>
+                                            <input type="text" name="ledSize" class="form-control" placeholder="例如：100"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">LED租用价格（元/天）</span>
+                                            <input type="text" name="ledRent" class="form-control" placeholder="例如200/天"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane fade active in" id="origin">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">房间名称</span>
+                                        <input type="text" name="roomName" class="form-control"
+                                               placeholder="填写房间名称，比如：主会议室"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">房间面积（㎡）</span>
+                                        <input type="text" name="area" class="form-control" placeholder="填写数字即可，比如：1000"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">房间层高（m）</span>
+                                        <input type="text" name="storyHeight" class="form-control"
+                                               placeholder="填写数字即可，比如：2"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">房间尺寸（㎡）</span>
+                                        <input type="text" name="size" class="form-control"
+                                               placeholder="填写具体场所的长宽高，比如：1000*800*300"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">房间流明度（lm）</span>
+                                        <input type="text" name="lumen" class="form-control"
+                                               placeholder="商用会场流明度一般在2000lm以上"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">房间类型</span>
+                                        <input type="text" name="type" class="form-control"
+                                               placeholder="比如：剧院式，课桌式，分组式，回型/U型等"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">免费项目</span>
+                                        <input type="text" name="freeServices" class="form-control"
+                                               placeholder="比如：与会人员凭有效证件免费停车"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">门市全天价格（元）</span>
+                                        <input type="text" name="retailFullDay" class="form-control" placeholder="请填写数字"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">门市半天价格（元）</span>
+                                        <input type="text" name="retailHalfDay" class="form-control" placeholder="请填写数字"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">会议全天价格（元）</span>
+                                        <input type="text" name="meetingOnlyFullDay" class="form-control"
+                                               placeholder="请填写数字"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">会议半天价格（元）</span>
+                                        <input type="text" name="meetingOnlyHalfDay" class="form-control"
+                                               placeholder="请填写数字"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">延时收费/小时（元）</span>
+                                        <input type="text" name="overtimeChargePurHour" class="form-control"
+                                               placeholder="超出协定服务时间的，每小时20元，不足的按一小时收取，此处填写数字即可"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">所在楼层</span>
+                                        <input type="text" name="meetingLevel" class="form-control" placeholder="比如：1"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有直达电梯</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasThroughLiftToMeeting"
+                                                       name="hasThroughLiftToMeeting" checked value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasThroughLiftToMeeting"
+                                                       name="hasThroughLiftToMeeting" value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有免费休息室</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasFreeLounge" name="hasFreeLounge" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasFreeLounge" name="hasFreeLounge"
+                                                       value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有前厅</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasLobby" name="hasLobby" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasLobby" name="hasLobby" value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有窗户</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasWindow" name="hasWindow" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasWindow" name="hasWindow" value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否方正</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasSquareArea" name="hasSquareArea" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasSquareArea" name="hasSquareArea"
+                                                       value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有柱子</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasPillar" name="hasPillar" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasPillar" name="hasPillar" value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有地毯</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasCarpet" name="hasCarpet" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasCarpet" name="hasCarpet" value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有舞台</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasStage" name="hasStage" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasStage" name="hasStage" value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有投影</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasProjection" name="hasProjection" checked
+                                                       value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasProjection" name="hasProjection"
+                                                       value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">是否有LED</span>
+                                        <div class="form-control">
+                                            <label class="label label-success">
+                                                <input type="radio" class="hasLed" name="hasLed" checked value="true">有
+                                            </label>
+                                            <label class="label label-danger">
+                                                <input type="radio" class="hasLed" name="hasLed" value="false">无
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">LED尺寸（寸）</span>
+                                        <input type="text" name="ledSize" class="form-control" placeholder="例如：100"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">LED租用价格（元/天）</span>
+                                        <input type="text" name="ledRent" class="form-control" placeholder="例如：200/天"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="saveOrUpdateSite" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <nav th:replace="systemManage/menu :: menulist"></nav>
+        <input type="hidden" id="param" th:value="${pathParam}">
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header" th:text="${page_header}"></h1>
+
+            <div class="row placeholders">
+                <div aria-label="..." class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-new-site">新增+
+                    </button>
+                </div>
+            </div>
+
+            <div th:if="${pager.datas.size()} == 0">
+                <div class="table-responsive">
+                    <h4><p class="text-center">暂无数据</p></h4>
+                </div>
+            </div>
+
+            <div th:if="${pager.datas.size()} > 0">
+
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>预览图</th>
+                            <th>场地名称</th>
+                            <th>指导价格</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="item : ${pager.datas}">
+                        <tr>
+                            <td><img th:src="${item.previewImageUrl}" class="img-thumbnail" style="height: 50px;"></td>
+                            </td>
+                            <td th:text="${item.siteName}"></td>
+                            <td th:text="${item.startingPrice}"></td>
+                            <td>
+                                <a type="button" class="btn btn-xs btn-success" data-toggle="modal" disabled
+                                   th:id="${item.id}">更新</a>
+                                <!--<a type="button" class="btn btn-xs btn-success" data-toggle="modal"-->
+                                <!--data-target="#update-site" th:id="${item.id}">更新</a>-->
+                                <a type="button" class="btn btn-xs btn-danger" data-toggle="modal"
+                                   data-target="#delete-site" th:id="${item.id}">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div th:replace="pager :: pagerbar"></div>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="footer :: commonjs"></div>
+<script th:src="@{/static/js/manageSitelist.js}"></script>
+<script th:src="@{/static/js/bootstrap/jquery-ui-1.10.3.custom.min.js}"></script>
+<script th:src="@{/static/js/bootstrap/datepicker-zh-CN.js}"></script>
+</body>
+</html>

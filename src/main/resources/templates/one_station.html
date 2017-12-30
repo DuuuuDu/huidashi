@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: commonheader">
+</head>
+
+<head>
+    <!--/*页面自定义*/-->
+    <title>一站式服务</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/one_station.css}">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+
+<body>
+
+<!-- 导航 -->
+<nav th:replace="nav :: navbar"></nav>
+
+<div class="container marketing">
+
+    <!--一站式服务简介-->
+    <div class="row featurette" style="margin-top: 120px;">
+        <div class="col-md-7">
+            <h3 class="featurette-heading">
+                什么是<span class="text-muted">一站式服务</span>
+            </h3>
+            <p class="lead">
+                需求发布后，10分钟内收到会大师会务专员致电， <br>
+                确定您的需求，由会大师提供3-6套方案，确定您满意为止。 <br>
+                提供会前咨询、会中执行、会后跟进，会议服务一站式搞定， <br>
+                所有需求100%免收服务费。
+            </p>
+        </div>
+        <div class="col-md-5" style="margin-top: 120px;">
+            <img class="featurette-image img-responsive center-block" th:src="@{/static/images/0b52d7794750aab63858b0a91064e291.png}"
+                 data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+            <h3 class="featurette-heading">
+                会大师特色的<span class="text-muted">一站式服务</span>
+            </h3>
+            <p class="lead">
+                会大师在了解您的需要之后，<br>
+                一对一专职会务管家为您提供会前策划、场地预订、场地布置搭建、特殊会议类型报批、节目表演<br>
+                及主持模特、会中执行跟进，会后资料收集与反馈，保证您整场会议圆满进行。<br>
+                并且我们正与全国600多个城市的酒店场地深度合作，竞价机制为您节省30%-50%的成本
+            </p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+            <img class="featurette-image img-responsive center-block" style="width: 50%;height: 50%;margin-top: 60px;" th:src="@{/static/images/b9d02c89742f5be0bea0f19e926fb740.jpg}"
+                 data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+    </div>
+
+    <!--一站式服务结束-->
+
+    <!-- 页脚 -->
+    <footer th:replace="footer :: copy"></footer>
+
+</div>
+
+
+<div th:include="footer :: commonjs"></div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 公共头 -->
+<body>
+<header th:fragment="commonheader">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="favicon" rel="shortcut icon" th:href="@{/static/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/custombootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/custom-theme/jquery-ui-1.10.3.custom.css}">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/nav.css}">
+</header>
+
+<header th:fragment="bgcommonheader">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="favicon" rel="shortcut icon" th:href="@{/static/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/static/css/custom-theme/jquery-ui-1.10.3.custom.css}">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/custombootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/dashboard.css}">
+</header>
+
+</body>
+</html>

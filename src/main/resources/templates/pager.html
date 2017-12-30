@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<nav th:fragment="pagerbar">
+    <ul class="pager" th:if="${pager.datas.pages} != 0">
+        <li>
+            <a th:href="${curUrl}+ '?pageOffSet=1' + ${pathParam}">首页</a>
+        </li>
+        <li th:if="${pager.datas.pageNum} == 1" th:class="disabled">
+            <a href="javascript:void(0);">上一页</a>
+        </li>
+        <li th:if="${pager.datas.pageNum} > 1">
+            <a th:href="${curUrl} + '?pageOffSet=' + (${pager.datas.pageNum} -1) + ${pathParam}">上一页</a>
+        </li>
+        <!--<li><span th:inline="text">当前第[[${pager.datas.pageNum}]]页，共[[${pager.datas.pages}]]页，共[[${pager.datas.total}]]条记录</span></li>-->
+
+        <li th:if="${pager.datas.pageNum} == ${pager.datas.pages}" th:class="disabled">
+            <a href="javascript:void(0);">下一页</a>
+        </li>
+        <li th:if="${pager.datas.pageNum} < ${pager.datas.pages}">
+            <a th:href="${curUrl} + '?pageOffSet=' + (${pager.datas.pageNum} + 1) + ${pathParam}">下一页</a>
+        </li>
+        <li>
+            <a th:href="${curUrl} + '?pageOffSet=' + ${pager.datas.pages} + ${pathParam}" th>尾页</a>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:include="header :: bgcommonheader">
+</head>
+<head>
+    <title>会大师后台管理 - 广告管理</title>
+
+</head>
+
+<body>
+
+<nav th:replace="systemManage/nav :: navbar"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <nav th:replace="systemManage/menu :: menulist"></nav>
+        <input type="hidden" id="param" th:value="${pathParam}">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header" th:text="${page_header}"></h1>
+            <!--<span th:text="${pager.datas}"></span>-->
+
+            <!--<div class="row placeholders">-->
+            <!--<div aria-label="..." class="btn-group" role="group">-->
+            <!--<a  href="?hasRead=false" th:class="${!applyPageParam.hasRead}?'btn btn-primary active':'btn btn-primary'">-->
+            <!--未读信息 <span class="badge unReadCount" th:text="${unReadedCount}">4</span>-->
+            <!--</a>-->
+            <!--<a href="?hasRead=true" th:class="${applyPageParam.hasRead}?'btn btn-default active':'btn btn-default'">-->
+            <!--已读信息 <span class="badge readCount" th:text="${readedCount}"></span>-->
+            <!--</a>-->
+            <!--</div>-->
+
+            <!--</div>-->
+
+            <div class="row placeholders">
+                <div aria-label="..." class="btn-group" role="group">
+                    <a href="javascript:void(0);" class="btn btn-success addSite" style="float: right;">
+                        新增
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <div class="list-group" th:if="${pager.datas != null}" th:each="item : ${pager.datas}">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span th:text="${item.adName}"></span>
+
+                            <button class="btn btn-default navbar-btn cancelAd" th:id="${item.id}"
+                                    style="float: right;margin: 0 0 0 5px;padding: 0px 15px;display: none"
+                                    type="button">取消
+                            </button>
+
+                            <button class="btn btn-default navbar-btn editAd" th:id="${item.id}"
+                                    style="float: right;margin: 0 0 0 5px;padding: 0px 15px;" type="button">编辑
+                            </button>
+
+                            <button class="btn btn-danger navbar-btn updAd" th:id="${item.id}"
+                                    style="float: right;margin: 0 0 0 5px;padding: 0px 15px;display: none"
+                                    type="button">更新
+                            </button>
+
+                        </div>
+
+                        <div class="media" style="margin: 5px">
+                            <div class="media-left" style="padding-right: 5px">
+                                <a th:href="${item.linkUrl}">
+                                    <img class="media-object" th:src="${item.adImageUrl}"
+                                         style="width: 533px; height: 100px;">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <form th:id="'updForm' + ${item.id}" action="update" method="post"
+                                      enctype="multipart/form-data">
+                                    <input type="hidden" name="id" th:value="${item.id}"/>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">预览图</span>
+                                        <input name="adImageUrl" type="file" class="form-control" disabled>
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">广告名称</span>
+                                        <input name="adName" class="form-control" th:value="${item.adName}"
+                                               disabled>
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">链接URL</span>
+                                        <input name="linkUrl" class="form-control" th:value="${item.linkUrl}"
+                                               disabled>
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">是否生效</span>
+
+                                        <input type="hidden" name="valid" class="form-control" th:value="${item.valid}">
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                            <button type="button"
+                                                    th:class="${item.valid}?'btn btn-default valid y active':'btn btn-default y valid'"
+                                                    disabled>是
+                                            </button>
+                                            <button type="button"
+                                                    th:class="!${item.valid}?'btn btn-default valid active':'btn btn-default valid'"
+                                                    disabled>否
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div th:replace="pager :: pagerbar"></div>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="footer :: commonjs"></div>
+<script th:src="@{/static/js/manageAdlist.js}"></script>
+</body>
+</html>

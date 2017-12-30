@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.huidashi.mapper.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.huidashi.entity.Menu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="has_submenu" property="hasSubmenu" jdbcType="BIT" />
+    <result column="parent_menu_id" property="parentMenuId" jdbcType="INTEGER" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, has_submenu, parent_menu_id, link
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_menu
+    ORDER BY rank DESC
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.huidashi.entity.Menu" >
+    insert into t_menu (id, name, has_submenu, 
+      parent_menu_id, link)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{hasSubmenu,jdbcType=BIT}, 
+      #{parentMenuId,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.huidashi.entity.Menu" >
+    insert into t_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="hasSubmenu != null" >
+        has_submenu,
+      </if>
+      <if test="parentMenuId != null" >
+        parent_menu_id,
+      </if>
+      <if test="link != null" >
+        link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hasSubmenu != null" >
+        #{hasSubmenu,jdbcType=BIT},
+      </if>
+      <if test="parentMenuId != null" >
+        #{parentMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.huidashi.entity.Menu" >
+    update t_menu
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hasSubmenu != null" >
+        has_submenu = #{hasSubmenu,jdbcType=BIT},
+      </if>
+      <if test="parentMenuId != null" >
+        parent_menu_id = #{parentMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="link != null" >
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.huidashi.entity.Menu" >
+    update t_menu
+    set name = #{name,jdbcType=VARCHAR},
+      has_submenu = #{hasSubmenu,jdbcType=BIT},
+      parent_menu_id = #{parentMenuId,jdbcType=INTEGER},
+      link = #{link,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

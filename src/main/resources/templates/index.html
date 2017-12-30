@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:include="header :: commonheader">
+</head>
+
+<head>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>会大师，您身边的场地专家</title>
+</head>
+
+
+<body style="overflow-x: hidden">
+
+<!-- 导航 -->
+<nav th:replace="nav :: navbar"></nav>
+
+<!-- 轮播开始 -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <form action="/apply/post" method="post" class="applyform">
+
+        <div class="apply-form translucency">
+
+        </div>
+
+        <div class="apply-form post-cellphone">
+            <h2>尊敬的<span class="nickName">神秘先生/女士</span></h2>
+            <p class="navbar-text" style="line-height: 25px;margin-top: 25px;margin-left: 25px;">
+                您希望在<span class="city label label-primary">在一个神秘的地方</span>，进行<span
+                    class="activityType label label-primary">一项神秘的活动</span>，预算为<span
+                    class="activityBudget label label-primary">一个未知数</span>，
+                开始时间是<span class="beginDate label label-primary">“立刻”！我们应该聊一聊了~！</span>
+            </p>
+            <div class="input-group">
+                <span class="input-group-addon" id="cellPhone">手机号码</span>
+                <input name="cellPhone" type="text" class="form-control" placeholder="请至少填写联系电话，方便我们联系"
+                       aria-describedby="cellPhone" required>
+            </div>
+            <div class="input-group" style="position: absolute;bottom: 5%;width: 100%;margin: 0;right: 5%;">
+                <input class="btn btn-lg btn-primary postApply" style="float: right;width: 40%;margin-right: 5%"
+                       value="提交" type="submit"/>
+            </div><!-- /input-group -->
+            <a class="topost-form badge" href="javascript:void(0);">&lt;返回</a>
+        </div>
+
+        <div class="apply-form post-form">
+
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1">尊敬的</span>
+                <input name="nickName" type="text" class="form-control" placeholder="例如：张先生/王女士"
+                       aria-describedby="sizing-addon1">
+            </div>
+
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">活动城市<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">北京</a></li>
+                        <li><a href="javascript:void(0)">上海</a></li>
+                        <li><a href="javascript:void(0)">广州</a></li>
+                        <li><a href="javascript:void(0)">深圳</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="javascript:void(0)">天津</a></li>
+                        <li><a href="javascript:void(0)">沈阳</a></li>
+                        <li><a href="javascript:void(0)">大连</a></li>
+                        <li><a href="javascript:void(0)">哈尔</a></li>
+                        <li><a href="javascript:void(0)">济南</a></li>
+                        <li><a href="javascript:void(0)">青岛</a></li>
+                        <li><a href="javascript:void(0)">南京</a></li>
+                        <li><a href="javascript:void(0)">杭州</a></li>
+                        <li><a href="javascript:void(0)">武汉</a></li>
+                        <li><a href="javascript:void(0)">香港</a></li>
+                        <li><a href="javascript:void(0)">澳门</a></li>
+                        <li><a href="javascript:void(0)">重庆</a></li>
+                        <li><a href="javascript:void(0)">成都</a></li>
+                        <li><a href="javascript:void(0)">西安</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+                <input name="city" type="text" class="form-control" aria-label="...">
+            </div><!-- /input-group -->
+
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">活动类型<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">培训/讲座</a></li>
+                        <li><a href="javascript:void(0)">工作会/总结会</a></li>
+                        <li><a href="javascript:void(0)">经销商会议/招商会/推介会</a></li>
+                        <li><a href="javascript:void(0)">发布会/颁奖/庆典</a></li>
+                        <li><a href="javascript:void(0)">研讨/交流/论坛</a></li>
+                        <li><a href="javascript:void(0)">公司年会</a></li>
+                        <li><a href="javascript:void(0)">答谢会</a></li>
+                        <li><a href="javascript:void(0)">沙龙</a></li>
+                        <li><a href="javascript:void(0)">同学会/好友聚会</a></li>
+                        <li><a href="javascript:void(0)">团队建设/拓展/休闲会议</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+                <input name="activityType" type="text" class="form-control" aria-label="...">
+            </div><!-- /input-group -->
+
+
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">活动预算<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">5000元以下</a></li>
+                        <li><a href="javascript:void(0)">5000元~10000元</a></li>
+                        <li><a href="javascript:void(0)">10000元~20000元</a></li>
+                        <li><a href="javascript:void(0)">20000元以上</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+                <input name="activityBudget" type="text" class="form-control" aria-label="...">
+            </div><!-- /input-group -->
+
+            <div class="input-group">
+                <span class="input-group-addon">开始时间</span>
+                <input readonly="readonly" name="beginDate" id="datepicker" type="text" class="form-control"/>
+            </div><!-- /input-group -->
+
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon3">其他需求</span>
+                <input name="requirement" type="text" class="form-control" placeholder="场地名称，商圈，地标"
+                       aria-describedby="sizing-addon3">
+            </div><!-- /input-group -->
+
+            <div class="input-group topost-cellphone-group">
+                <a class="btn btn-lg btn-primary topost-cellphone" href="javascript:void(0);">找场地</a>
+            </div><!-- /input-group -->
+
+        </div>
+    </form>
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" th:attr="data-slide-to=${iterStat.index}"
+            th:classappend="${iterStat.index} == 0?'active'" th:if="${pager.datas != null}"
+            th:each="item,iterStat : ${pager.datas}"></li>
+    </ol>
+
+
+    <div class="carousel-inner" role="listbox">
+        <div class="item" th:classappend="${iterStat.index} == 0?'active'" th:each="item,iterStat : ${pager.datas}">
+            <a th:href="${item.linkUrl}">
+                <img th:src="${item.adImageUrl}"
+                     th:alt="${item.adName}" style="height: 100%;">
+            </a>
+
+        </div>
+
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button"
+       data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"
+                                aria-hidden="true"></span> <span class="sr-only">上一个</span>
+    </a> <a class="right carousel-control" href="#myCarousel" role="button"
+            data-slide="next"> <span
+        class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">下一个</span>
+</a>
+</div>
+<!-- 轮播结束 -->
+
+<!--FAQ-->
+<div class="container marketing">
+
+    <div class="panel panel-default">
+        <h4 class="panel-heading text-muted" style="margin: 0">酒店甄选</h4>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86124938/9885ebf993ec7f31c7e73e264b958c10.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳星河丽思卡尔顿酒店</h3>
+                            <p style="min-height: 40px">深圳市福田区福华三路116号</p>
+                            <p>¥<span class="startingprice">500</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86144226/281d7d53d414b36e088fcfee604d1ada.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳蛇口希尔顿南海酒店</h3>
+                            <p style="min-height: 40px">深圳市南山区望海路1177号</p>
+                            <p>¥<span class="startingprice">1020</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86144057/033a08ea0569cd5fc8ffba8d086b2c60.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳四季酒店
+                            </h3>
+                            <p style="min-height: 40px">深圳市福田区福华三路138号</p>
+                            <p>¥<span class="startingprice">610</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div>
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                                      data-toggle="tab">热门会议酒店</a></li>
+                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab"
+                                                       data-toggle="tab">人气精选酒店</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home">
+                                <dt>
+                                <dd><span class="label label-default">01</span><span class="label"
+                                                                                     style="color: #cf973c">深圳四季酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">02</span><span class="label"
+                                                                                     style="color: #cf973c">深圳星河丽思卡尔顿酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">03</span><span class="label"
+                                                                                     style="color: #cf973c">深圳大梅沙湾游艇会酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">04</span><span class="label"
+                                                                                     style="color: #cf973c">深圳蛇口希尔顿南海酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">05</span><span class="label"
+                                                                                     style="color: #cf973c">深圳富临大酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">06</span><span class="label"
+                                                                                     style="color: #cf973c">深圳深航国际酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">07</span><span class="label"
+                                                                                     style="color: #cf973c">深圳马哥孛罗好日子酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">08</span><span class="label"
+                                                                                     style="color: #cf973c">深圳香格里拉大酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">09</span><span class="label"
+                                                                                     style="color: #cf973c">深圳君悦酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">10</span><span class="label"
+                                                                                     style="color: #cf973c">深圳龙岗珠江皇冠假日酒</span>
+                                </dd>
+                                </dt>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="profile">
+                                <dt>
+                                <dd><span class="label label-default">01</span><span class="label"
+                                                                                     style="color: #cf973c">深圳大梅沙湾游艇会酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">02</span><span class="label"
+                                                                                     style="color: #cf973c">深圳蛇口希尔顿南海酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">03</span><span class="label"
+                                                                                     style="color: #cf973c">深圳硬石酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">04</span><span class="label"
+                                                                                     style="color: #cf973c">深圳大中华希尔顿酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">05</span><span class="label"
+                                                                                     style="color: #cf973c">深圳登喜路国际大酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">06</span><span class="label"
+                                                                                     style="color: #cf973c">深圳马哥孛罗好日子酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">07</span><span class="label"
+                                                                                     style="color: #cf973c">深圳维纳斯酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">08</span><span class="label"
+                                                                                     style="color: #cf973c">深圳香格里拉大酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">09</span><span class="label"
+                                                                                     style="color: #cf973c">深圳君悦酒店</span>
+                                </dd>
+                                <dd><span class="label label-default">10</span><span class="label"
+                                                                                     style="color: #cf973c">深圳彭年酒店</span>
+                                </dd>
+                                </dt>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="page-header" style="margin-bottom:10px;">
+                        <h3 style="margin: 0;">本月新增会议需求</h3>
+                        <h1 style="margin: 10px;" class="text-muted iconfont2">28012 &#xe691;</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>深圳会议场地配套服务</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe601;
+                            <div class="text-center">场地搭建</div>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe603;
+                            <div class="text-center">音响灯光</div>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe609;
+                            <div class="text-center">视频投影</div>
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe608;
+                            <div class="text-center">摄影摄像</div>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe602;
+                            <div class="text-center">车辆服务</div>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe607;
+                            <div class="text-center">设计策划</div>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe604;
+                            <div class="text-center">翻译服务</div>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe60b;
+                            <div class="text-center">演出节目</div>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="iconfont text-center">&#xe606;
+                            <div class="text-center">礼仪服务</div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86156961/e567afe40dda84c6c1cc40976c2c1d1b.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳大梅沙湾游艇会酒店</h3>
+                            <p style="min-height: 40px">深圳市盐田区大梅沙盐梅路89号</p>
+                            <p>¥<span class="startingprice">660</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86188692/2d947e402b14b794f6161f8e0796d7d7.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳硬石酒店</h3>
+                            <p style="min-height: 40px">深圳市龙华区观澜高尔夫大道9号，近观澜湖乡村俱乐部</p>
+                            <p>¥<span class="startingprice">1020</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86124794/d6934c75b8469849c117ed27dfc99485.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳马哥孛罗好日子酒店
+                            </h3>
+                            <p style="min-height: 40px">深圳市福田区福华一路28号</p>
+                            <p>¥<span class="startingprice">800</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86125268/4a022872b3cd8936f73aed218add4589.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳龙岗珠江皇冠假日酒店
+                            </h3>
+                            <p style="min-height: 40px">深圳市龙岗区龙岗中心城龙翔大道9009号</p>
+                            <p>¥<span class="startingprice">1200</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86124586/1d5cbc5a91058d8f9070ede855f9846c.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳彭年酒店
+                            </h3>
+                            <p style="min-height: 40px">深圳市罗湖区嘉宾路2002号</p>
+                            <p>¥<span class="startingprice">850</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div class="thumbnail" data-toggle="modal" data-target="#myModal">
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 211px; height: 138px;"
+                             src="http://img.yaokaihui.com/86133957/6407fd601615bda58e3c947c71a1dcb7.jpg!I160120"/>
+                        <div class="caption">
+                            <h3 style="min-height: 52px">深圳深航国际酒店
+
+                            </h3>
+                            <p style="min-height: 40px">深圳市福田区深南大道6035号</p>
+                            <p>¥<span class="startingprice">400</span>起</p>
+                            <p><a href="javascrupt:void(0);" class="btn btn-primary" role="button" disabled>预定</a> <a
+                                    href="#"
+                                    class="btn btn-default"
+                                    role="button">查看</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3">
+                    <div>
+
+                        <div class="page-header" style="margin-bottom:10px;border-bottom: none">
+                            <h3 style="margin: 0;">最新需求</h3></h1>
+                        </div>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content" style="overflow-y: scroll;height: 316px;">
+                            <dt>
+                            <dd><span class="label label-default">2017-12-21 13:45:21</span><h5 style="color: #cf973c">
+                                【公司年会】小***车在上海找100人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-21 11:20:12</span><h5 style="color: #cf973c">
+                                【答谢会】北京华******技术有在北京找60人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-21 10:00:02</span><h5 style="color: #cf973c">
+                                【公司年会】上海发******管理有在上海找500人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-20 22:21:11</span><h5 style="color: #cf973c">
+                                【公司年会】中国***公司在上海找400人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-20 20:02:09</span><h5 style="color: #cf973c">
+                                【培训/讲座】北京***政局在北京找300人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-20 17:05:19</span><h5 style="color: #cf973c">
+                                【公司年会】上海隆******管理有在上海找70人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-20 14:44:31</span><h5 style="color: #cf973c">
+                                【公司年会】小叶子******科技有在北京找350人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-20 13:21:01</span><h5 style="color: #cf973c">
+                                【经销商会议/招商会/推介会】武汉***公司在武汉找60人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-20 13:21:08</span><h5 style="color: #cf973c">
+                                【公司年会】北京在******科技有在北京找130人的会议场地</h5></dd>
+                            <dd><span class="label label-default">2017-12-20 13:22:06</span><h5 style="color: #cf973c">
+                                【培训/讲座】芊明***科技在上海找200人的会议场地</h5></dd>
+                            </dt>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <h4 class="panel-heading text-muted" style="margin: 0">大家怎么说？</h4>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-4"><img
+                                th:src="@{/static/images/temp/u=1579790237,1780541075&fm=27&gp=0.jpg}" alt="..."
+                                class="img-thumbnail"></div>
+                        <div class="col-md-8"><h5>瑞康达斯科技有限公司
+                            深圳分公司</h5>
+                            <p>公司年中总结会体验了一把会大师的服务，房餐会整体环节连接顺畅，选址及拓展活动方案与我们的需求比较贴合，比较专业。</p></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-4"><img th:src="@{/static/images/temp/timg.jpeg}" alt="..."
+                                                   class="img-thumbnail"></div>
+                        <div class="col-md-8"><h5>北京一品先科科技股份公司
+                            CEO助理</h5>
+                            <p>这次时间特别紧张，公司只给我一个星期找地方，在网上查到会大师，结果会大师的员工帮我精彩完成任务，领导都很满意。</p></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-4"><img th:src="@{/static/images/temp/timg (1).jpeg}" alt="..."
+                                                   class="img-thumbnail"></div>
+                        <div class="col-md-8"><h5>五彩缤纷移动办公平台
+                            CEO Jim</h5>
+                            <p>会大师是我们的战略合作伙伴，我们的会基本都委托给他们。他们资源丰富，反应迅速，大大提高了办会效率，降低运营成本。</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <h4 class="panel-heading text-muted" style="margin: 0">会大师为您提供专业的服务</h4>
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#about" aria-controls="home" role="tab"
+                                                          data-toggle="tab">会大师是什么</a></li>
+                <li role="presentation"><a href="#feature" aria-controls="profile" role="tab"
+                                           data-toggle="tab">会大师有什么特点</a></li>
+                <li role="presentation"><a href="#why" aria-controls="messages" role="tab"
+                                           data-toggle="tab">为什么选择会大师</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content abouthuidashi">
+                <div role="tabpanel" class="tab-pane active" id="about">
+                    <div class="panel-body">
+                        <b>会大师</b>，是深圳会大师信息技术有限公司旗下品牌。会大师网是中国最知名、口碑最好的会议资源在线预订平台。
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="feature">
+                    <div class="panel-body">
+                        <ul>
+                            <li><b>海量数据，精准信息。</b>会大师提供中国660个城市场地的海量、精准数据，是中国最大的会议、活动场地资源数据库之一。</li>
+                            <li><b>快速搜索，轻松对比。</b>会大师搜索引擎，为用户提供最方便的场地数据查询、对比和预定。</li>
+                            <li><b>替您砍价，帮您选优。</b>从场地获得第一手折后价格信息，以海量数据库价格作比对，帮您侃到优惠价。并提供优质备选方案。</li>
+                            <li><b>策划执行，一站服务。</b>会大师囊括会前策划、现场执行，并有搭建、演艺等配合部门，为您省去麻烦，提供一站式服务。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="why">
+                    <div class="panel-body">
+                        <ul>
+                            <li><b>找场地难？</b>直连全国660个城市的酒店和特色场地。</li>
+                            <li><b>侃价累？</b>全国660个城市的场地竞价，省钱30%。VIP立享15万企业集采价，再省20% </li>
+                            <li><b>嫌麻烦？</b>会前策划、场地搭建、会议物料、主持表演等等，一站式服务。</li>
+                            <li><b>服务贵？</b>一对一会务顾问咨询服务。100%免收服务费</li>
+                            <li><b>怕打扰？</b>客户信息绝对保密，指定人员专职对接，无第三方人员打扰客户</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default cooperation">
+        <h4 class="panel-heading text-muted" style="margin: 0">合作伙伴</h4>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/fls_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/gj_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/hd_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/hg_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/hgld_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/jl_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/kbsImg.jpg}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/ky_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/kyue_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/nj_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/starwood.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/syxld_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/wh_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/wl_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/xerd_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/xgll_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/zj_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+                <div class="col-md-2"><img th:src="@{/static/images/cooperation/bc_link.png}" alt="..."
+                                           class="img-thumbnail"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer th:replace="footer :: copy"></footer>
+</div>
+<!-- FAQ结束 -->
+
+<!-- FOOTER -->
+<div th:include="footer :: commonjs"></div>
+
+<script th:src="@{/static/js/index.js}"></script>
+<script th:src="@{/static/js/bootstrap/jquery-ui-1.10.3.custom.min.js}"></script>
+<script th:src="@{/static/js/bootstrap/datepicker-zh-CN.js}"></script>
+
+
+</body>
+</html>

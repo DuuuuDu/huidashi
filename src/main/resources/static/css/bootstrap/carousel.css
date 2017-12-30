@@ -1,0 +1,222 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+    color: #5a5a5a;
+}
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.navbar-wrapper .navbar {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.navbar-wrapper .navbar .container {
+    width: auto;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+    height: 360px;
+    margin-bottom: 20px;
+    margin-top: 120px;
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+    z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+    height: 360px;
+    background-color: #777;
+}
+
+.carousel-inner > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 360px;
+}
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.marketing h2 {
+    font-weight: normal;
+}
+
+.marketing .col-lg-4 p {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+    margin: 40px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+    /* Navbar positioning foo */
+    .navbar-wrapper {
+        margin-top: 20px;
+    }
+
+    .navbar-wrapper .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .navbar-wrapper .navbar {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* The navbar becomes detached from the top, so we round the corners */
+    .navbar-wrapper .navbar {
+        border-radius: 4px;
+    }
+
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: 1.4;
+    }
+
+    .featurette-heading {
+        font-size: 50px;
+    }
+}
+
+@media (min-width: 992px) {
+    .featurette-heading {
+        margin-top: 120px;
+    }
+}
+
+dd {
+    margin: 10px 5px;
+}
+
+.label {
+    font-size: 105%;
+}
+
+@font-face {
+    font-family: iconfont;
+    src: url(/ycss/icon/iconfont.eot?v=507394832);
+    src: url(/ycss/icon/iconfont.eot?v=507394832) format('embedded-opentype'), url(/static/font/iconfont.woff?v=469619803) format('woff'), url(/ycss/icon/iconfont.ttf?v=3008710682) format('truetype'), url(/ycss/icon/iconfont.svg#iconfont?v=201411222120) format('svg')
+}
+
+@font-face {
+    font-family: 'iconfont2';
+    src: url('iconfont.eot');
+    src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+    url('/static/font/iconfont2.woff?v=4696198222') format('woff'),
+    url('iconfont.ttf') format('truetype'),
+    url('iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: iconfont !important;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.iconfont2 {
+    font-family: iconfont2 !important;
+    font-size: 45px;
+    cursor: pointer;
+}
+
+.startingprice {
+    color: #cf973c;
+    font-size: 18px;
+}
+
+p {
+    margin: 0;
+}
+
+.page-header {
+    padding-bottom: 0;
+    margin: 0;
+}
+
+div.cooperation .row {
+    margin-bottom: 15px;
+}
+
+footer ul {
+    float: left;
+    margin: 20px;
+    list-style: none;
+}
+
+footer ul li {
+    margin-bottom: 20px;
+}
+
+footer ul li a:hover,footer ul li a:active,footer ul li a:focus {
+    text-decoration: none;
+}
+
+footer .ercode {
+    width: 185px;
+    margin: auto;
+}
+
+footer div.footer {
+    height: 300px;
+    padding-top: 50px;
+}
+
+div.cooperation .panel-body {
+    padding-bottom: 0px;
+}
+
+div.abouthuidashi .panel-body {
+    padding-bottom: 0;
+}

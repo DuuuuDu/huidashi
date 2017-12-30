@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.huidashi.mapper.AdvertismentMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.huidashi.entity.Advertisment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ad_image_url" property="adImageUrl" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="ad_name" property="adName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="valid" property="valid" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ad_image_url, link_url, ad_name, create_time, valid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_advertisment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_advertisment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.huidashi.entity.Advertisment" >
+    insert into t_advertisment (id, ad_image_url, link_url,
+    ad_name, create_time, valid
+    )
+    values (#{id,jdbcType=INTEGER}, #{adImageUrl,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR},
+    #{adName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{valid,jdbcType=BIT}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.huidashi.entity.Advertisment" >
+    insert into t_advertisment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adImageUrl != null" >
+        ad_image_url,
+      </if>
+      <if test="linkUrl != null" >
+        link_url,
+      </if>
+      <if test="adName != null" >
+        ad_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="valid != null" >
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adImageUrl != null" >
+        #{adImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="adName != null" >
+        #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.huidashi.entity.Advertisment" >
+    update t_advertisment
+    <set >
+      <if test="adImageUrl != null" >
+        ad_image_url = #{adImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="adName != null" >
+        ad_name = #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.huidashi.entity.Advertisment" >
+    update t_advertisment
+    set ad_image_url = #{adImageUrl,jdbcType=VARCHAR},
+    link_url = #{linkUrl,jdbcType=VARCHAR},
+    ad_name = #{adName,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    valid = #{valid,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPageParam" resultMap="BaseResultMap"
+          parameterType="com.cn.huidashi.entity.pagedto.AdPageParam">
+    select
+    <include refid="Base_Column_List" />
+    from t_advertisment
+    where 1 = 1
+    <if test="adImageUrl != null" >
+      AND ad_image_url = #{adImageUrl,jdbcType=VARCHAR},
+    </if>
+    <if test="linkUrl != null" >
+      AND link_url = #{linkUrl,jdbcType=VARCHAR},
+    </if>
+    <if test="adName != null" >
+      AND ad_name = #{adName,jdbcType=VARCHAR},
+    </if>
+    <if test="createTime != null" >
+      AND create_time = #{createTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="valid != null" >
+      AND valid = #{valid,jdbcType=BIT},
+    </if>
+    ORDER BY create_time desc
+  </select>
+</mapper>

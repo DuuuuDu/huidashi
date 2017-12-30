@@ -1,0 +1,53 @@
+/*span.input-group-addon{*/
+    /*width: 165px;*/
+/*}*/
+
+
+.input-group-addon{
+    width: 20%;
+    text-align: right;
+}
+
+.input-group{
+    width: 100%;
+}
+
+.nav-tabs{
+    border: none;
+}
+
+.tab-content{
+    margin-top: 10px;
+}
+
+.bs-example{
+    margin-top: 10px;
+}
+.bs-example li{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.dropdown-menu li{
+    margin: 0;
+}
+
+/*ul[id='roomTab'] div.roomname{*/
+    /*width: 120px;*/
+/*}*/
+ul[id='roomTab'] a.roomname{
+    width: 120px;
+}
+
+.alert-span{
+    color: #d9534f;
+    font-size: 12px;
+}
+
+/*div.btn-group{*/
+    /*width:120px;*/
+/*}*/
+
+/*a.btn-default{*/
+    /*width: 100%;*/
+/*}*/

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.huidashi.mapper.ApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.huidashi.entity.Apply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="cell_phone" property="cellPhone" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="activity_type" property="activityType" jdbcType="VARCHAR" />
+    <result column="activity_budget" property="activityBudget" jdbcType="VARCHAR" />
+    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="has_read" property="hasRead" jdbcType="BIT" />
+    <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, nick_name, cell_phone, city, activity_type, activity_budget, begin_date, requirement,
+    create_time, has_read, read_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.huidashi.entity.Apply" >
+    insert into t_apply (id, nick_name, cell_phone,
+    city, activity_type, activity_budget,
+    begin_date, requirement, create_time,
+    has_read, read_time)
+    values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{cellPhone,jdbcType=VARCHAR},
+    #{city,jdbcType=VARCHAR}, #{activityType,jdbcType=VARCHAR}, #{activityBudget,jdbcType=VARCHAR},
+    #{beginDate,jdbcType=TIMESTAMP}, #{requirement,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+    #{hasRead,jdbcType=BIT}, #{readTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.huidashi.entity.Apply" >
+    insert into t_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="cellPhone != null" >
+        cell_phone,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityBudget != null" >
+        activity_budget,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="hasRead != null" >
+        has_read,
+      </if>
+      <if test="readTime != null" >
+        read_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellPhone != null" >
+        #{cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityBudget != null" >
+        #{activityBudget,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hasRead != null" >
+        #{hasRead,jdbcType=BIT},
+      </if>
+      <if test="readTime != null" >
+        #{readTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.huidashi.entity.Apply" >
+    update t_apply
+    <set >
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellPhone != null" >
+        cell_phone = #{cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null" >
+        activity_type = #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityBudget != null" >
+        activity_budget = #{activityBudget,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requirement != null" >
+        requirement = #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hasRead != null" >
+        has_read = #{hasRead,jdbcType=BIT},
+      </if>
+      <if test="readTime != null" >
+        read_time = #{readTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.huidashi.entity.Apply" >
+    update t_apply
+    set nick_name = #{nickName,jdbcType=VARCHAR},
+    cell_phone = #{cellPhone,jdbcType=VARCHAR},
+    city = #{city,jdbcType=VARCHAR},
+    activity_type = #{activityType,jdbcType=VARCHAR},
+    activity_budget = #{activityBudget,jdbcType=VARCHAR},
+    begin_date = #{beginDate,jdbcType=TIMESTAMP},
+    requirement = #{requirement,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    has_read = #{hasRead,jdbcType=BIT},
+    read_time = #{readTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPageParam" resultMap="BaseResultMap" parameterType="com.cn.huidashi.entity.Apply" >
+    select
+    <include refid="Base_Column_List" />
+    from t_apply
+    where 1 = 1
+    <if test="nickName != null" >
+      AND nick_name = #{nickName,jdbcType=VARCHAR}
+    </if>
+    <if test="cellPhone != null" >
+      AND cell_phone = #{cellPhone,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null" >
+      AND city = #{city,jdbcType=VARCHAR}
+    </if>
+    <if test="activityType != null" >
+      AND activity_type = #{activityType,jdbcType=VARCHAR}
+    </if>
+    <if test="activityBudget != null" >
+      AND activity_budget = #{activityBudget,jdbcType=VARCHAR}
+    </if>
+    <if test="beginDate != null" >
+      begin_date = #{beginDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="requirement != null" >
+      AND requirement = #{requirement,jdbcType=VARCHAR}
+    </if>
+    <if test="createTime != null" >
+      AND create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="hasRead != null" >
+      AND has_read = #{hasRead,jdbcType=BIT}
+    </if>
+    <if test="readTime != null" >
+      AND read_time = #{readTime,jdbcType=TIMESTAMP}
+    </if>
+    ORDER BY create_time DESC
+  </select>
+
+  <select id="getReadedCount" resultType="java.lang.Integer" >
+    select
+    count(*)
+    from t_apply
+    where has_read = TRUE
+  </select>
+
+  <select id="getUnReadedCount" resultType="java.lang.Integer" >
+    select
+    count(*)
+    from t_apply
+    where has_read = FALSE;
+  </select>
+
+  <update id="markReaded" parameterType="java.lang.Integer" >
+    update t_apply
+    SET
+      has_read = TRUE
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

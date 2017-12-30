@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: commonheader">
+</head>
+
+<head>
+    <!--/*页面自定义*/-->
+    <title>关于我们</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/one_station.css}">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+
+<body>
+
+<!-- 导航 -->
+<nav th:replace="nav :: navbar"></nav>
+
+<div class="container marketing about">
+
+    <!-- 关于信息 -->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">关于会大师</div>
+        <div class="panel-body">
+            <p>
+                深圳市会大师会务有限公司成立于2017年5月。我们致力于提供专业的全程或单项会议服务，我们秉承“没有客户就没有我们”的理念，坚决“策划直到满意，执行必须完美，价格一定最优”的服务准则
+                ，为客户提供我们最用心的服务！我们不仅是一家会务公司，公司拥有自己的策划团队，执行团队，明星经纪，专业演艺，延伸出各种项目：会议策划，年会策划，大型晚会策划，明星演唱会，高端婚礼策划，公司企业宣传微电影制作等等。服务创造价值，态度决定品质！
+            </p>
+        </div>
+    </div>
+
+    <div class="panel panel-default" id="recentinfo">
+        <div class="panel-heading">动态中心</div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">2017-12-01 00:00:00</span>
+                    会大师官网及公众号全线改版
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">2017-10-01 00:00:00</span>
+                    会大师可提供的场地超过10000家
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">2017-07-01 00:00:00</span>
+                    会大师合作场地超过1000家
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">2017-05-18 00:00:00</span>
+                    会大师正式成立
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default" id="contractus">
+        <div class="panel-heading">联系我们</div>
+        <div class="panel-body">
+            <p>
+                深圳公司<br>
+                公司地址：深圳市坪山区乐安居国际大酒店东津名座B座508室<br>
+                贵宾电话：0755-33964727<br>
+                联系人：张生<br>
+                联系电话：13662253783（微信同号）
+            </p>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer th:replace="footer :: copy"></footer>
+
+</div>
+
+<!-- 关于信息结束 -->
+<div th:include="footer :: commonjs"></div>
+
+</body>
+</html>

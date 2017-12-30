@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.huidashi.mapper.SiteMapper">
+    <resultMap id="BaseResultMap" type="com.cn.huidashi.entity.Site">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="site_name" jdbcType="VARCHAR" property="siteName"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="starting_price" jdbcType="VARCHAR" property="startingPrice"/>
+        <result column="preview_image_url" jdbcType="VARCHAR" property="previewImageUrl"/>
+        <result column="pdf_brief_url" jdbcType="VARCHAR" property="pdfBriefUrl"/>
+        <result column="site_brief_introduction" jdbcType="VARCHAR" property="siteBriefIntroduction"/>
+        <result column="site_services" jdbcType="VARCHAR" property="siteServices"/>
+        <result column="site_policy" jdbcType="VARCHAR" property="sitePolicy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="last_decoration_date" jdbcType="DATE" property="lastDecorationDate"/>
+        <result column="opening_date" jdbcType="DATE" property="openingDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, site_name, location, starting_price, preview_image_url, pdf_brief_url,site_brief_introduction,
+    site_services, site_policy, create_time, update_time, last_decoration_date,opening_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_site
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_site
+    where id = #{id,jdbcType=INTEGER};
+    -- 同时删除房间信息
+    delete from t_meeting_room
+    where site_id = #{id,jdbcType=INTEGER};
+
+  </delete>
+    <insert id="insert" parameterType="com.cn.huidashi.entity.Site" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into t_site (id, site_name, location, 
+      starting_price, preview_image_url, pdf_brief_url, site_brief_introduction,
+      site_services, site_policy, create_time, 
+      update_time, last_decoration_date,opening_date)
+    values (#{id,jdbcType=INTEGER}, #{siteName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{startingPrice,jdbcType=VARCHAR}, #{previewImageUrl,jdbcType=VARCHAR}, #{pdfBriefUrl,jdbcType=VARCHAR} #{siteBriefIntroduction,jdbcType=VARCHAR},
+      #{siteServices,jdbcType=VARCHAR}, #{sitePolicy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{lastDecorationDate,jdbcType=DATE},, #{openingDate,jdbcType=DATE}))
+  </insert>
+    <insert id="insertSelective" parameterType="com.cn.huidashi.entity.Site" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into t_site
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="siteName != null">
+                site_name,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="startingPrice != null">
+                starting_price,
+            </if>
+            <if test="previewImageUrl != null">
+                preview_image_url,
+            </if>
+            <if test="pdfBriefUrl != null">
+                pdf_brief_url,
+            </if>
+            <if test="siteBriefIntroduction != null">
+                site_brief_introduction,
+            </if>
+            <if test="siteServices != null">
+                site_services,
+            </if>
+            <if test="sitePolicy != null">
+                site_policy,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="lastDecorationDate != null">
+                last_decoration_date,
+            </if>
+            <if test="openingDate != null">
+                opening_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="siteName != null">
+                #{siteName,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="startingPrice != null">
+                #{startingPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="previewImageUrl != null">
+                #{previewImageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="pdfBriefUrl != null">
+                #{pdfBriefUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="siteBriefIntroduction != null">
+                #{siteBriefIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="siteServices != null">
+                #{siteServices,jdbcType=VARCHAR},
+            </if>
+            <if test="sitePolicy != null">
+                #{sitePolicy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastDecorationDate != null">
+                #{lastDecorationDate,jdbcType=DATE},
+            </if>
+            <if test="openingDate != null">
+                #{openingDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cn.huidashi.entity.Site">
+        update t_site
+        <set>
+            <if test="siteName != null">
+                site_name = #{siteName,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="startingPrice != null">
+                starting_price = #{startingPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="previewImageUrl != null">
+                preview_image_url = #{previewImageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="pdfBriefUrl != null">
+                pdf_brief_url = #{pdfBriefUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="siteBriefIntroduction != null">
+                site_brief_introduction = #{siteBriefIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="siteServices != null">
+                site_services = #{siteServices,jdbcType=VARCHAR},
+            </if>
+            <if test="sitePolicy != null">
+                site_policy = #{sitePolicy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastDecorationDate != null">
+                last_decoration_date = #{lastDecorationDate,jdbcType=DATE},
+            </if>
+            <if test="openingDate != null">
+                opening_date = #{openingDate,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cn.huidashi.entity.Site">
+    update t_site
+    set site_name = #{siteName,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      starting_price = #{startingPrice,jdbcType=VARCHAR},
+      preview_image_url = #{previewImageUrl,jdbcType=VARCHAR},
+      pdf_brief_url = #{pdfBriefUrl,jdbcType=VARCHAR},
+      site_brief_introduction = #{siteBriefIntroduction,jdbcType=VARCHAR},
+      site_services = #{siteServices,jdbcType=VARCHAR},
+      site_policy = #{sitePolicy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      last_decoration_date = #{lastDecorationDate,jdbcType=DATE},
+      opening_date
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectByPageParam" resultMap="BaseResultMap"
+            parameterType="com.cn.huidashi.entity.pagedto.SitePageParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_site
+        where 1 = 1
+        <if test="id != null">
+            AND id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="siteName != null">
+            AND site_name = #{siteName,jdbcType=VARCHAR}
+        </if>
+        <if test="location != null">
+            AND location = #{location,jdbcType=VARCHAR}
+        </if>
+        <if test="startingPrice != null">
+            AND starting_price = #{startingPrice,jdbcType=VARCHAR}
+        </if>
+        <if test="previewImageUrl != null">
+            AND preview_image_url = #{previewImageUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="siteBriefIntroduction != null">
+            AND site_brief_introduction = #{siteBriefIntroduction,jdbcType=VARCHAR}
+        </if>
+        <if test="siteServices != null">
+            AND site_services = #{siteServices,jdbcType=VARCHAR}
+        </if>
+        <if test="sitePolicy != null">
+            AND site_policy = #{sitePolicy,jdbcType=VARCHAR}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+</mapper>

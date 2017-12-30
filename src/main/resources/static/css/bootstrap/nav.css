@@ -1,0 +1,168 @@
+.apply-form {
+    float: left;
+    position: absolute;
+    z-index: 3;
+    left: 10%;
+    top: 50%;
+    width: 500px;
+    height: 300px;
+    margin-top: -150px;
+    border-radius: 5px;
+}
+
+.translucency {
+    background: #101010;
+    filter: alpha(Opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.navbar-nav {
+    float: right;
+}
+
+.navbar-nav > li > a {
+    line-height: 70px;
+}
+
+.carousel-indicators {
+    left: 85%;
+}
+
+.input-group {
+    margin: 5px 15px 0 15px;
+    float: left;
+}
+
+.open > .dropdown-menu {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.post-cellphone {
+    color: #ffffff;
+    display: none;
+    z-index: 2;
+}
+
+.post-cellphone h2 {
+    margin: 57px 0 0 30px;
+}
+
+.topost-form {
+    position: absolute;
+    right: 2%;
+    top: 5%;
+}
+
+.topost-form:hover {
+    text-decoration: none;
+}
+
+.text-muted {
+    color: #cf973c;
+}
+
+.panel-default > .panel-heading {
+    color: #cf973c;
+}
+
+.navbar-wrapper {
+    z-index: 1;
+}
+
+.navbar-brand {
+    margin: 0;
+    padding: 0;
+    height: 100px;
+}
+
+.thumbnail {
+    transition: box-shadow 0.2s;
+}
+
+.thumbnail:hover {
+    box-shadow: 10px 10px 10px #ddd;
+    cursor: pointer;
+}
+
+.topost-cellphone {
+    width: 100%;
+}
+
+.topost-cellphone-group {
+    margin: 10px auto;
+    width: 30%;
+    left: 35%;
+}
+
+/*移动端导航栏适配*/
+@media (max-width: 1024px) {
+    .container {
+        width: 100%;
+    }
+
+    .navbar-brand {
+        height: 60px;
+        padding: 5px 5px;
+    }
+
+    .apply-form {
+        left: 10%;
+        width: 80%;
+        overflow: hidden;
+    }
+
+    .apply-form > .input-group {
+        width: 90%;
+        margin: 8px auto;
+        float: none;
+        left: 0;
+    }
+
+    .apply-form > .input-group > .form-control {
+        height: 30px;
+    }
+
+    .apply-form > .input-group > .input-group-btn > .btn {
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .carousel-indicators {
+        bottom: 0;
+        width: 15%;
+    }
+
+    .topost-cellphone {
+        width: 100%;
+        margin: auto;
+    }
+
+    .post-cellphone h2 {
+        margin: 10px;
+        font-size: 20px;
+    }
+
+    .carousel {
+        margin-top: 60px;
+    }
+
+    .navbar-toggle {
+        margin: auto;
+        margin-top: 13px;
+        margin-right: 5%;
+        background-color: #333;
+    }
+
+    .navbar-nav {
+        float: none;
+        margin: auto;
+    }
+    .navbar-nav > li > a {
+        line-height: 30px;
+    }
+
+}
