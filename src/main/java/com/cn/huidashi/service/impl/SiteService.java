@@ -68,9 +68,10 @@ public class SiteService implements ISiteService {
 
     @Override
     public int deleteSite(int id) {
-        //移除图片
+
         Site site = siteMapper.selectByPrimaryKey(id);
 
+        //移除图片
         if (!ObjectUtils.isEmpty(site)) {
             try {
 

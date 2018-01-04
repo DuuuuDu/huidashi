@@ -27,5 +27,15 @@ public class MeetingRoomService implements IMeetingRoomService {
         return meetingRoomMapper.selectBySiteId(siteId);
     }
 
+    @Override
+    public int updateBySelective(MeetingRoom meetingRoom) {
+        return meetingRoomMapper.updateByPrimaryKeySelective(meetingRoom);
+    }
+
+    @Override
+    public int deleteBySiteId(int siteId) {
+        return meetingRoomMapper.deleteBySiteId(siteId);
+    }
+
 
 }

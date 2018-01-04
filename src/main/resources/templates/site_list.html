@@ -12,7 +12,6 @@
     <meta name="author" content="">
 </head>
 
-
 <body>
 
 <!-- 导航 -->
@@ -29,25 +28,26 @@
         <div th:if="${pager.datas.size()} > 0">
 
 
-                <div class="col-lg-3 col-sm-3" style="min-height: 450px;" th:each="item : ${pager.datas}">
-                    <a th:href="'/site/detail/' + ${item.id}" target="_self">
+            <div class="col-lg-3 col-sm-3" style="min-height: 450px;" th:each="item : ${pager.datas}">
+                <a th:href="'/site/detail/' + ${item.id}" target="_self">
                     <div class="thumbnail" data-toggle="modal" data-target="#myModal" th:id="${item.id}">
-                        <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px;" th:src="${item.previewImageUrl}"/>
+                        <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px;"
+                             th:src="${item.previewImageUrl}"/>
                         <div class="caption" style="min-height: 185px;">
                             <h3 th:text="${item.siteName}" style="min-height: 52px"></h3>
                             <p th:text="${item.location}" style="min-height: 40px"></p>
                             <p>¥<span class="startingprice" th:text="${item.startingPrice}"></span>起</p>
                         </div>
                     </div>
-                    </a>
-                </div>
+                </a>
+            </div>
 
             <!--<div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">-->
-                <!--<div class="modal-dialog modal-lg" role="document">-->
-                    <!--<div id="detailContainer" class="modal-content">-->
-                        <!--加载中...-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="modal-dialog modal-lg" role="document">-->
+            <!--<div id="detailContainer" class="modal-content">-->
+            <!--加载中...-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
         </div>
 

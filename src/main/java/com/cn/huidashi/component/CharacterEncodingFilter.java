@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-//@WebFilter(filterName="CharacterEncodingFilter",urlPatterns="/*")
+@WebFilter(filterName="CharacterEncodingFilter",urlPatterns="/*")
 public class CharacterEncodingFilter implements Filter {
 
     @Autowired

@@ -143,12 +143,12 @@ public class JsonUtil {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static <T> T toPOJO(String srcString,Class<T> clz) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public static <T> T toPOJO(String srcString,TypeReference clz) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         T t = null;
         if(!StringUtils.isEmpty(srcString)){
-            t = mapper.readValue(srcString, new TypeReference<T>() {});
+            t = mapper.readValue(srcString, clz);
             return t;
         }
-        return (T) Class.forName(clz.getName()).newInstance();
+        return (T) clz.getClass().newInstance();
     }
 }

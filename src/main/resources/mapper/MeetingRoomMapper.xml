@@ -56,7 +56,13 @@
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_meeting_room
     where id = #{id,jdbcType=INTEGER}
-  </delete>
+    </delete>
+
+    <delete id="deleteBySiteId" parameterType="java.lang.Integer">
+        delete from t_meeting_room
+        where site_id = #{siteId,jdbcType=INTEGER}
+    </delete>
+
     <insert id="insert" parameterType="com.cn.huidashi.entity.MeetingRoom">
     insert into t_meeting_room (id, site_id, name, 
       area, story_height, size, 

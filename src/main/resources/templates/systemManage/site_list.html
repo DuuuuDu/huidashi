@@ -51,7 +51,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">
+                <h4 class="modal-title" id="modal-title">
                     新增会场信息
                 </h4>
             </div>
@@ -65,12 +65,14 @@
                     <!--</a>-->
                     <!--</div>-->
                     <!--</div>-->
+                    <input type="hidden" id="id-for-update">
+
 
                     <div class="alert alert-warning alert-dismissible" role="alert" id="tipMessage">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                         <strong>注意！</strong>带有<span class="alert-span glyphicon glyphicon-info-sign"
-                                                                  aria-hidden="true"></span>的内容为必填项，请认真正确的填写。<br/>上传文件的大小限制为10M，为保证高质量的用户浏览体验，预览图建议尺寸是550*350，或同比例更大的图片
+                                                                  aria-hidden="true"></span>的内容为必填项，请认真正确的填写。<br/>上传文件的大小限制为10M，为保证高质量的用户浏览体验，预览图建议尺寸是550*350，或同比例更大的图片。
                     </div>
 
                     <div class="bs-example">
@@ -85,7 +87,7 @@
                             <div class="input-group">
                                 <span></span> <span class="input-group-addon" id="basic-addon1">场地信息PDF</span>
                                 <input type="file" name="pdfBrief" class="form-control"
-                                       aria-describedby="basic-addon1" required>
+                                       aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">会场名称<span
@@ -215,8 +217,12 @@
 
                             </ul>
                             <div id="roomTabContent" class="tab-content">
+
                                 <div style="display: none" id="roomTemplate">
                                     <div class="tab-pane fade">
+
+                                        <input type="hidden" name="roomId">
+
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1">房间名称</span>
                                             <input type="text" name="roomName" class="form-control"
@@ -687,8 +693,6 @@
             </div>
 
             <div th:if="${pager.datas.size()} > 0">
-
-
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -706,8 +710,8 @@
                             <td th:text="${item.siteName}"></td>
                             <td th:text="${item.startingPrice}"></td>
                             <td>
-                                <a type="button" class="btn btn-xs btn-success" data-toggle="modal" disabled
-                                   th:id="${item.id}">更新</a>
+                                <a type="button" class="btn btn-xs btn-success" data-toggle="modal"
+                                   data-target="#add-new-site" th:id="${item.id}">更新</a>
                                 <!--<a type="button" class="btn btn-xs btn-success" data-toggle="modal"-->
                                 <!--data-target="#update-site" th:id="${item.id}">更新</a>-->
                                 <a type="button" class="btn btn-xs btn-danger" data-toggle="modal"
@@ -729,6 +733,7 @@
 
 <div th:include="footer :: commonjs"></div>
 <script th:src="@{/static/js/manageSitelist.js}"></script>
+<script th:src="@{/static/js/utility/moment.js}"></script>
 <script th:src="@{/static/js/bootstrap/jquery-ui-1.10.3.custom.min.js}"></script>
 <script th:src="@{/static/js/bootstrap/datepicker-zh-CN.js}"></script>
 </body>

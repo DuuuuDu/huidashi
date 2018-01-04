@@ -7,24 +7,14 @@ import com.cn.huidashi.entity.Site;
 import com.cn.huidashi.entity.page.Pager;
 import com.cn.huidashi.entity.pagedto.SitePageParam;
 import com.cn.huidashi.entity.paramDto.ResultDto;
-import com.cn.huidashi.entity.paramDto.SiteDto;
 import com.cn.huidashi.service.ICommonService;
 import com.cn.huidashi.service.IMeetingRoomService;
 import com.cn.huidashi.service.ISiteService;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
-import org.springframework.boot.json.JsonJsonParser;
-import org.springframework.boot.json.JsonParser;
-import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +24,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 
@@ -63,16 +50,17 @@ public class SiteController {
 
     /**
      * 返回场地明细数据（html）
+     *
      * @return
      */
     @GetMapping({"/site/detail/{id}"})
-    public String to_site_detail_html(Model m,@PathVariable("id") Integer id) {
+    public String fetch_site_detail_html(Model m, @PathVariable("id") Integer id) {
         try {
             Site site = iSiteService.getSiteById(id);
 
-            if(ObjectUtils.isEmpty(site)){
+            if (ObjectUtils.isEmpty(site)) {
                 return "404";
-            }else{
+            } else {
                 List<MeetingRoom> rooms = iMeetingRoomService.selectBySiteId(site.getId());
 
                 m.addAttribute("site", site);
@@ -82,34 +70,38 @@ public class SiteController {
             e.printStackTrace();
             //TODO 跳转至错误页面
         }
-        return "site_detail_v2";
+        return "site_detail";
     }
 
     /**
      * 返回场地明细数据（html）
+     *
      * @return
      */
-
-    //注释部分为调试部分
-//    @RequestMapping(
-//            method = RequestMethod.GET,
-//            value = {"/site/api/detail/{id}"},
-//            produces={"text/html;charset=UTF-8;","application/json;"})
-
-    @GetMapping(value = {"/systemManage/site/update/{id}"})
-    public String manage_to_site_detail_html(Model m,@PathVariable("id") Integer id) {
+    @GetMapping(value = {"/site/detail/api/{id}"})
+    @ResponseBody
+    public JsonNode fetch_site_detail_json(Model m, @PathVariable("id") Integer id) throws IOException {
+        ResultDto resultDto = new ResultDto();
         Site site = null;
         try {
             site = iSiteService.getSiteById(id);
+
+            if (ObjectUtils.isEmpty(site)) {
+                resultDto.setFlag(0);
+                JsonUtil.toJson(resultDto);
+            } else {
+                List<MeetingRoom> rooms = iMeetingRoomService.selectBySiteId(site.getId());
+
+                HashMap<String, Object> mapData = Maps.newHashMap();
+                mapData.put("site", site);
+                mapData.put("rooms", rooms);
+                resultDto.setMapData(mapData);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-            site = new Site();
+            resultDto.setFlag(0);
         }
-        m.addAttribute("site", site);
-        return "systemManage/site_update";
+        return JsonUtil.toJson(resultDto);
     }
-
-
 
     /**
      * 导航到场地列表界面
@@ -132,117 +124,175 @@ public class SiteController {
         } catch (Exception e) {
             e.printStackTrace();
             //TODO 跳转至错误页面
-
         }
-
-
         return "site_list";
     }
 
-
-    @PostMapping({"/systemManage/site/file"})
+    @PostMapping({"/systemManage/site/saveOrUpdate"})
     @ResponseBody
-    public JsonNode upload_site_file(@RequestParam("previewImg")MultipartFile previewImg,
-                                     @RequestParam(value = "pdfBrief",required = false)MultipartFile pdfBrief) throws IOException {
+    public JsonNode upload_site_file(@RequestParam(value = "previewImg", required = false) MultipartFile previewImg,
+                                     @RequestParam(value = "pdfBrief", required = false) MultipartFile pdfBrief,
+                                     MultipartHttpServletRequest request) throws IOException {
 
         //配置文件中获取文件保存路径
         String sitePath = env.getProperty("image.site.path", String.class);
         String siteBriefFile = env.getProperty("image.siteBriefFile.path", String.class);
 
-        File sitePathDir = new File(sitePath);
-        if(!sitePathDir.exists()){
-            sitePathDir.mkdirs();
-        }
-        File siteBriefPathDir = new File(siteBriefFile);
-        if(!siteBriefPathDir.exists()){
-            siteBriefPathDir.mkdirs();
-        }
+        //配置文件中获取静态资源的路由
+        String siteRoute = env.getProperty("image.site.reqRoute", String.class);
+        String siteBriefFileRoute = env.getProperty("image.siteBriefFile.reqRoute", String.class);
 
         //操作标识
         ResultDto resultDto = new ResultDto();
-        //文件非空时一定会保存
-        if(! StringUtils.isEmpty(previewImg.getOriginalFilename()) ){
-            try {
 
-                String previewImgName = UUID.randomUUID().toString();
-                //配置中获取项目路径，保存
-                FileUtils.copyToFile(previewImg.getInputStream(),new File(sitePath + File.separator + previewImgName));
-                resultDto.setMessage("文件上传成功");
-                Map datas =  Maps.newHashMap();
-                datas.put("previewImg",previewImgName);
+        try {
 
-                if(!ObjectUtils.isEmpty(pdfBrief) && !StringUtils.isEmpty(pdfBrief.getOriginalFilename()) ) {
-                    String pdfBriefName = UUID.randomUUID().toString();
-                    FileUtils.copyToFile(pdfBrief.getInputStream(), new File(siteBriefFile + File.separator + pdfBriefName));
-                    datas.put("pdfBrief",pdfBriefName);
+            Site site = JsonUtil.toPOJO(request.getParameter("site"), new TypeReference<Site>() {});
+
+            //id不为空白，意味着要更新
+            if (!StringUtils.isEmpty(site.getId())) {
+
+                int id = site.getId();
+
+                Site siteDb = iSiteService.getSiteById(id);
+
+                //文件是否重复上传了，如果上传了，需要删除源文件
+                if (!ObjectUtils.isEmpty(previewImg)
+                        &&
+                        !StringUtils.isEmpty(previewImg.getOriginalFilename())) {
+
+                    String previewImageName = siteDb.getPreviewImageUrl().substring(siteDb.getPreviewImageUrl().lastIndexOf("/"));
+                    //删除原文件
+                    FileUtils.forceDelete(new File(sitePath + File.separator + previewImageName));
+                    //生成文件名
+                    String previewFileName = UUID.randomUUID().toString();
+                    //保存新文件
+                    FileUtils.copyToFile(previewImg.getInputStream(), new File(sitePath + File.separator + previewFileName));
+                    //保存请求路由
+                    site.setPreviewImageUrl(siteRoute + File.separator + previewFileName);
+
+                }
+                if (!ObjectUtils.isEmpty(pdfBrief)
+                        &&
+                        !StringUtils.isEmpty(pdfBrief.getOriginalFilename())) {
+
+                    String getPdfBriefName = siteDb.getPdfBriefUrl().substring(siteDb.getPdfBriefUrl().lastIndexOf("/"));
+                    //删除源文件
+                    FileUtils.forceDelete(new File(siteBriefFile + File.separator + getPdfBriefName));
+                    //生成文件名
+                    String pdfFileName = UUID.randomUUID().toString();
+                    //保存新文件
+                    FileUtils.copyToFile(pdfBrief.getInputStream(), new File(siteBriefFile + File.separator + pdfFileName));
+                    //保存请求路由
+                    site.setPdfBriefUrl(siteBriefFileRoute + File.separator + pdfFileName);
+                }
+                //更新会场信息
+                iSiteService.saveOrUpdateSite(site);
+
+                //避免校验更新时房间信息和数据库房间信息两个对象数组之间的差异，直接删除所有旧的房间信息
+                iMeetingRoomService.deleteBySiteId(site.getId());
+                List<MeetingRoom> rooms = JsonUtil.toPOJO(request.getParameter("meetingRooms"), new TypeReference<List<MeetingRoom>>() {
+                });
+                rooms.forEach(m -> {
+                    m.setSiteId(site.getId());
+                });
+                iMeetingRoomService.batchInsert(rooms);
+
+                resultDto.setMessage("会场信息更新成功");
+
+                return JsonUtil.toJson(resultDto);
+
+            } else {
+                File sitePathDir = new File(sitePath);
+                if (!sitePathDir.exists()) {
+                    sitePathDir.mkdirs();
+                }
+                File siteBriefPathDir = new File(siteBriefFile);
+                if (!siteBriefPathDir.exists()) {
+                    siteBriefPathDir.mkdirs();
                 }
 
-                resultDto.setMapData(datas);
+                //预览图必须上传
+                if (!StringUtils.isEmpty(previewImg.getOriginalFilename())) {
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                resultDto.setFlag(0);
+                    //文件名为UUID
+                    String previewImgName = UUID.randomUUID().toString();
+                    String pdfBriefName = "";
+
+                    //配置中获取项目路径，保存
+                    FileUtils.copyToFile(previewImg.getInputStream(), new File(sitePath + File.separator + previewImgName));
+
+                    //PDF描述文件为上传可选项
+                    if (!ObjectUtils.isEmpty(pdfBrief) && !StringUtils.isEmpty(pdfBrief.getOriginalFilename())) {
+                        pdfBriefName = UUID.randomUUID().toString();
+                        FileUtils.copyToFile(pdfBrief.getInputStream(), new File(siteBriefFile + File.separator + pdfBriefName));
+                    }
+
+                    //保存图片请求url
+                    site.setPreviewImageUrl(siteRoute + File.separator + previewImgName);
+                    site.setPdfBriefUrl(siteBriefFileRoute + File.separator + pdfBriefName);
+
+                    site.setCreateTime(new Date());
+                    site.setUpdateTime(new Date());
+
+                    iSiteService.saveOrUpdateSite(site);
+
+                    List<MeetingRoom> rooms = JsonUtil.toPOJO(request.getParameter("meetingRooms"), new TypeReference<List<MeetingRoom>>() {
+                    });
+                    rooms.forEach(m -> {
+                        m.setSiteId(site.getId());
+                    });
+
+                    iMeetingRoomService.batchInsert(rooms);
+
+                    resultDto.setMessage("会场信息保存成功");
+
+                    return JsonUtil.toJson(resultDto);
+
+
+                } else {
+                    //预览图必传
+                    resultDto.setFlag(0);
+                    resultDto.setMessage("预览图必须上传");
+                }
+
+                return JsonUtil.toJson(resultDto);
             }
-        }else{
-            //预览图必传
+
+        } catch (Exception e) {
+            e.printStackTrace();
             resultDto.setFlag(0);
+            resultDto.setMessage("场地信息保存异常，请重试，或联系系统管理员");
+            return JsonUtil.toJson(resultDto);
         }
 
-        return JsonUtil.toJson(resultDto);
+
     }
 
     /**
      * 保存/更新场地信息
      * @return
      */
-    @PostMapping({"/systemManage/site/update"})
-    @ResponseBody
-    public JsonNode upds_site(@RequestBody String param) throws IOException {
-
-        //操作标识
-        ResultDto resultDto = new ResultDto();
-
-        try {
-            Site site = JsonUtil.toPOJO(param,"site",new TypeReference<Site>(){});
-            String siteRoute = env.getProperty("image.site.reqRoute", String.class);
-            String siteBriefFileRoute = env.getProperty("image.siteBriefFile.reqRoute", String.class);
-
-            site.setPreviewImageUrl(siteRoute + File.separator + JsonUtil.getStringValue(param,"previewImg"));
-            site.setPdfBriefUrl(siteBriefFileRoute + File.separator + JsonUtil.getStringValue(param,"pdfBrief"));
-
-            site.setCreateTime(new Date());
-            site.setUpdateTime(new Date());
-
-            iSiteService.saveOrUpdateSite(site);
-
-            List<MeetingRoom> rooms = JsonUtil.toPOJO(param,"meetingRooms",new TypeReference<List<MeetingRoom>>(){});
-            rooms.forEach(m -> {m.setSiteId(site.getId());});
-
-            iMeetingRoomService.batchInsert(rooms);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultDto.setFlag(0);
-            resultDto.setMessage("会场信息保存失败");
-        }
-
-        resultDto.setMessage("会场信息保存成功");
-
-        return JsonUtil.toJson(resultDto);
-    }
+//    @PostMapping({"/systemManage/site/update"})
+//    @ResponseBody
+//    public JsonNode upds_site(@RequestBody String param) throws IOException {
+//
+//
+//    }
 
     /**
      * 移除会场信息
+     *
      * @param id
      * @return
      */
     @GetMapping({"/systemManage/site/delete/{id}"})
-    public String del_site(@PathVariable("id") int id){
-        try{
+    public String del_site(@PathVariable("id") int id) {
+        try {
 
             iSiteService.deleteSite(id);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/systemManage/site/list";
@@ -262,9 +312,9 @@ public class SiteController {
             m.addAttribute("pager", pager);
 
             String pathParam = ParamUtil.parseBeanToPathParam(sitePageParam);
-            m.addAttribute("page_header","场地管理");//标题
-            m.addAttribute("current_menu","site_list");//当前菜单高亮
-            m.addAttribute("curUrl","/systemManage/site/list");//分页片段url
+            m.addAttribute("page_header", "场地管理");//标题
+            m.addAttribute("current_menu", "site_list");//当前菜单高亮
+            m.addAttribute("curUrl", "/systemManage/site/list");//分页片段url
             m.addAttribute("pathParam", pathParam);
 
         } catch (Exception e) {
@@ -272,9 +322,6 @@ public class SiteController {
             //TODO 跳转至错误页面
 
         }
-
-
         return "systemManage/site_list";
     }
-
 }

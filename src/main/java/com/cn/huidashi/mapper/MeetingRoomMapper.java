@@ -9,6 +9,8 @@ public interface MeetingRoomMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    int deleteBySiteId(int siteId);
+
     int insert(MeetingRoom record);
 
     int insertSelective(MeetingRoom record);

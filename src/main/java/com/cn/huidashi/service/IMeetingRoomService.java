@@ -23,4 +23,18 @@ public interface IMeetingRoomService {
      */
     List<MeetingRoom> selectBySiteId(int siteId);
 
+    /**
+     * 根据实际内容更新
+     * @param meetingRoom
+     * @return
+     */
+    int updateBySelective(MeetingRoom meetingRoom);
+
+    /**
+     * 根据指定会场id，删除相关的房间信息
+     * @param siteId
+     * @return
+     */
+    int deleteBySiteId(int siteId);
+
 }
